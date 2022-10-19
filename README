@@ -1,0 +1,14 @@
+= duitku
+Shulhan <ms@kilabit.info>
+:toc:
+:sectanchors:
+
+duitku is Go library and client for
+https://duitku.com[duitku.com].
+
+Supported HTTP APIs,
+
+* https://docs.duitku.com/disbursement/en/#inquiry-list-bank[Inquiry list bank^]
+
+// SPDX-FileCopyrightText: 2022 M. Shulhan <ms@kilabit.info>
+// SPDX-License-Identifier: GPL-3.0-or-later
