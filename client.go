@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	pathDisbursementListBank = `/disbursement/listBank`
+	PathDisbursementListBank = `/disbursement/listBank`
 )
 
 type Client struct {
@@ -54,7 +54,7 @@ func (cl *Client) DisbursementListBank() (banks []Bank, err error) {
 		resBody []byte
 	)
 
-	httpRes, resBody, err = cl.PostJSON(pathDisbursementListBank, nil, req)
+	httpRes, resBody, err = cl.PostJSON(PathDisbursementListBank, nil, req)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
