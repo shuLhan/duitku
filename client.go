@@ -14,7 +14,8 @@ import (
 )
 
 const (
-	PathDisbursementListBank = `/disbursement/listBank`
+	PathDisbursementListBank     = `/disbursement/listBank`
+	PathDisbursementCheckBalance = `/disbursement/checkBalance`
 )
 
 type Client struct {
@@ -37,6 +38,35 @@ func NewClient(opts ClientOptions) (cl *Client, err error) {
 	}
 
 	return cl, nil
+}
+
+// DisbursementCheckBalance get the current balances.
+func (cl *Client) DisbursementCheckBalance() (bal *Balance, err error) {
+	var (
+		logp = `DisbursementCheckBalance`
+		req  = createRequest(cl.opts)
+
+		httpRes *http.Response
+		resBody []byte
+	)
+
+	httpRes, resBody, err = cl.PostJSON(PathDisbursementCheckBalance, nil, req)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if httpRes.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
+	}
+
+	err = json.Unmarshal(resBody, &bal)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %s`, logp, err)
+	}
+	if bal.Code != resCodeSuccess {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, bal.Code, bal.Desc)
+	}
+
+	return bal, nil
 }
 
 // DisbursementListBank fetch list of banks for disbursement.
