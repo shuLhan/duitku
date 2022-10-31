@@ -8,7 +8,8 @@ import (
 )
 
 type Bank struct {
-	Code        string   `json:"bankCode"`
-	Name        string   `json:"bankName"`
 	MaxTransfer *big.Rat `json:"maxAmountTransfer"`
+
+	Code string `json:"bankCode"`
+	Name string `json:"bankName"`
 }

@@ -14,8 +14,8 @@ import (
 type request struct {
 	UserID    string `json:"userID"`
 	Email     string `json:"email"`
-	Timestamp int64  `json:"timestamp"`
 	Signature string `json:"signature"`
+	Timestamp int64  `json:"timestamp"`
 }
 
 func createRequest(opts ClientOptions) (req request) {

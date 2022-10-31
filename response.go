@@ -31,8 +31,8 @@ const (
 	resCodeErrTimestampExpired = `-960` // Timestamp is expired (5 minutes).
 )
 
+// response contains commons fields for each HTTP response.
 type response struct {
 	Code string `json:"responseCode"`
 	Desc string `json:"responseDesc"`
-	Data interface{}
 }

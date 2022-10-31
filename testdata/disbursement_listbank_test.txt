@@ -12,618 +12,513 @@ and formatted using prettier (default options).
 <<< response.json
 [
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "002",
-    "bankName": "PT BANK RAKYAT INDONESIA (PERSERO), TBK.",
-    "maxAmountTransfer": "25000000"
+    "bankName": "BANK BRI"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "008",
-    "bankName": "PT. BANK MANDIRI (PERSERO), TBK.",
-    "maxAmountTransfer": "25000000"
+    "bankName": "BANK MANDIRI"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "009",
-    "bankName": "PT BANK BNI",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK BNI"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "011",
-    "bankName": "PT BANK DANAMON INDONESIA Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK DANAMON"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "013",
-    "bankName": "PT BANK PERMATA TBK",
-    "maxAmountTransfer": "25000000"
+    "bankName": "PT BANK PERMATA TBK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "014",
-    "bankName": "PT BANK CENTRAL ASIA TBK.",
-    "maxAmountTransfer": "25000000"
+    "bankName": "BANK CENTRAL ASIA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "016",
-    "bankName": "PT BANK INTERNASIONAL INDONESIA Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK MAYBANK INDONESIA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "019",
-    "bankName": "PT PAN INDONESIA BANK, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT PAN INDONESIA BANK, TBK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "022",
-    "bankName": "PT BANK CIMB NIAGA, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "CIMB NIAGA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "023",
-    "bankName": "PT BANK UOB INDONESIA (dahulu UOB Buana)",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK UOB INDONESIA (DAHULU UOB BUANA)"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "028",
-    "bankName": "PT BANK OCBC NISP, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK OCBC NISP, TBK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "031",
-    "bankName": "CITIBANK N.A.",
-    "maxAmountTransfer": "0"
+    "bankName": "CITIBANK N.A."
   },
   {
-    "bankCode": "032",
-    "bankName": "JP. MORGAN CHASE BANK, N.A.",
-    "maxAmountTransfer": "0"
-  },
-  {
-    "bankCode": "033",
-    "bankName": "BANK OF AMERICA, N.A",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "50000000",
     "bankCode": "036",
-    "bankName": "PT BANK WINDU KENTJANA INTERNATIONAL, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK WINDU KENTJANA INTERNATIONAL, TBK"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "037",
-    "bankName": "PT BANK ARTHA GRAHA INTERNASIONAL, Tbk.",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK ARTHA GRAHA"
   },
   {
-    "bankCode": "040",
-    "bankName": "THE BANGKOK BANK COMP. LTD",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "0",
     "bankCode": "041",
-    "bankName": "THE HONGKONG \u0026 SHANGHAI BANKING CORP",
-    "maxAmountTransfer": "0"
+    "bankName": "THE HONGKONG \u0026 SHANGHAI BANKING CORP"
   },
   {
+    "maxAmountTransfer": "0",
     "bankCode": "042",
-    "bankName": "THE BANK OF TOKYO MITSUBISHI UFJ LTD",
-    "maxAmountTransfer": "0"
+    "bankName": "THE BANK OF TOKYO MITSUBISHI UFJ LTD"
   },
   {
-    "bankCode": "045",
-    "bankName": "PT. BANK SUMITOMO MITSUI INDONESIA",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "046",
-    "bankName": "PT BANK DBS INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK DBS INDONESIA"
   },
   {
-    "bankCode": "047",
-    "bankName": "PT BANK RESONA PERDANIA",
-    "maxAmountTransfer": "0"
-  },
-  {
-    "bankCode": "048",
-    "bankName": "PT BANK MIZUHO INDONESIA",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "050",
-    "bankName": "STANDARD CHARTERED BANK",
-    "maxAmountTransfer": "0"
+    "bankName": "STANDARD CHARTERED BANK"
   },
   {
+    "maxAmountTransfer": "0",
     "bankCode": "052",
-    "bankName": "THE ROYAL BANK OF SCOTLAND N.V.",
-    "maxAmountTransfer": "0"
+    "bankName": "THE ROYAL BANK OF SCOTLAND N.V."
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "054",
-    "bankName": "PT BANK CAPITAL INDONESIA, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK CAPITAL INDONESIA, TBK"
   },
   {
-    "bankCode": "057",
-    "bankName": "PT BANK BNP PARIBAS INDONESIA",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "061",
-    "bankName": "PT BANK ANZ INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK ANZ INDONESIA"
   },
   {
-    "bankCode": "067",
-    "bankName": "DEUTSCHE BANK AG.",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "069",
-    "bankName": "BANK OF CHINA LIMITED",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK OF CHINA LIMITED"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "076",
-    "bankName": "PT BANK BUMI ARTA, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK BUMI ARTA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "087",
-    "bankName": "PT BANK EKONOMI RAHARJA, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK HSBC INDONESIA"
   },
   {
-    "bankCode": "088",
-    "bankName": "PT BANK ANTARDAERAH",
-    "maxAmountTransfer": "0"
-  },
-  {
-    "bankCode": "089",
-    "bankName": "PT BANK RABOBANK INTERNATIONAL INDONESIA",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "095",
-    "bankName": "PT BANK MUTIARA, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK MUTIARA, TBK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "097",
-    "bankName": "PT BANK MAYAPADA INTERNATIONAL Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK MAYAPADA"
   },
   {
+    "maxAmountTransfer": "25000000",
     "bankCode": "1010",
-    "bankName": "OVO",
-    "maxAmountTransfer": "25000000"
+    "bankName": "OVO"
   },
   {
+    "maxAmountTransfer": "25000000",
     "bankCode": "1012",
-    "bankName": "DANA",
-    "maxAmountTransfer": "25000000"
+    "bankName": "DANA"
   },
   {
+    "maxAmountTransfer": "25000000",
     "bankCode": "1013",
-    "bankName": "SHOPEEPAY",
-    "maxAmountTransfer": "25000000"
+    "bankName": "SHOPEEPAY"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "110",
-    "bankName": "PT. BPD JAWA BARAT DAN BANTEN, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD JAWA BARAT DAN BANTEN, TBK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "111",
-    "bankName": "PT BANK DKI",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK DKI"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "112",
-    "bankName": "BPD YOGYAKARTA",
-    "maxAmountTransfer": "0"
+    "bankName": "BPD YOGYAKARTA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "113",
-    "bankName": "PT. BPD JAWA TENGAH",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD JAWA TENGAH"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "114",
-    "bankName": "PT. BPD JAWA TIMUR",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD JAWA TIMUR"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "115",
-    "bankName": "PT BPD JAMBI",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BPD JAMBI"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "116",
-    "bankName": "PT BANK ACEH",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK ACEH"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "117",
-    "bankName": "PT. BPD SUMATERA UTARA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD SUMATERA UTARA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "118",
-    "bankName": "PT BPD SUMATERA BARAT",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BPD SUMATERA BARAT"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "119",
-    "bankName": "PT BPD RIAU KEPRI",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BPD RIAU KEPRI"
   },
   {
+    "maxAmountTransfer": "99999999",
     "bankCode": "120",
-    "bankName": "PT. BPD SUMATERA SELATAN DAN BANGKA BELITUNG",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD SUMATERA SELATAN DAN BANGKA BELITUNG"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "121",
-    "bankName": "PT BPD LAMPUNG",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BPD LAMPUNG"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "122",
-    "bankName": "PT. BPD KALIMANTAN SELATAN",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD KALIMANTAN SELATAN"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "123",
-    "bankName": "PT. BPD KALIMANTAN BARAT",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD KALIMANTAN BARAT"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "124",
-    "bankName": "BPD KALIMANTAN TIMUR",
-    "maxAmountTransfer": "0"
+    "bankName": "BPD KALIMANTAN TIMUR"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "125",
-    "bankName": "PT BANK KALIMANTAN TENGAH",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK KALIMANTAN TENGAH"
   },
   {
+    "maxAmountTransfer": "0",
     "bankCode": "126",
-    "bankName": "PT BPD SULAWESI SELATAN DAN SULAWESI BARAT",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BPD SULAWESI SELATAN DAN SULAWESI BARAT"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "127",
-    "bankName": "PT. BPD SULAWESI UTARA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD SULAWESI UTARA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "128",
-    "bankName": "PT. BPD NUSA TENGGARA BARAT",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD NUSA TENGGARA BARAT"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "129",
-    "bankName": "PT. BPD BALI",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD BALI"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "130",
-    "bankName": "PT. BPD NUSA TENGGARA TIMUR",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD NUSA TENGGARA TIMUR"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "131",
-    "bankName": "PT. BPD MALUKU",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD MALUKU"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "132",
-    "bankName": "PT. BPD PAPUA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD PAPUA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "133",
-    "bankName": "PT. BPD BENGKULU",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD BENGKULU"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "134",
-    "bankName": "PT. BPD SULAWESI TENGAH",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BPD SULAWESI TENGAH"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "135",
-    "bankName": "BPD SULAWESI TENGGARA",
-    "maxAmountTransfer": "0"
+    "bankName": "BPD SULAWESI TENGGARA"
   },
   {
-    "bankCode": "145",
-    "bankName": "PT BANK NUSANTARA PARAHYANGAN,Tbk",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "146",
-    "bankName": "PT BANK OF INDIA INDONESIA, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK OF INDIA INDONESIA, TBK"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "147",
-    "bankName": "PT BANK MUAMALAT INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK MUAMALAT INDONESIA"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "151",
-    "bankName": "PT BANK MESTIKA DHARMA",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK MESTIKA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "152",
-    "bankName": "PT BANK METRO EXPRESS",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK METRO EXPRESS"
   },
   {
+    "maxAmountTransfer": "99999998",
     "bankCode": "153",
-    "bankName": "PT BANK SINARMAS, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK SINARMAS, TBK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "157",
-    "bankName": "PT BANK MASPION INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK MASPION"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "161",
-    "bankName": "PT BANK GANESHA",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK GANESHA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "164",
-    "bankName": "PT BANK ICBC INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK ICBC INDONESIA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "167",
-    "bankName": "PT QNB BANK KESAWAN Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT QNB BANK KESAWAN TBK"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "200",
-    "bankName": "PT BANK TABUNGAN NEGARA (PERSERO)",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK  BTN"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "212",
-    "bankName": "PT BANK HIMPUNAN SAUDARA 1906, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK WOORI SAUDARA"
   },
   {
-    "bankCode": "212",
-    "bankName": "PT BANK WOORI INDONESIA",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "213",
-    "bankName": "PT BANK TABUNGAN PENSIUNAN NASIONAL, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK TABUNGAN PENSIUNAN NASIONAL, TBK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "405",
-    "bankName": "PT BANK VICTORIA SYARIAH",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK VICTORIA SYARIAH"
   },
   {
-    "bankCode": "422",
-    "bankName": "PT BANK BRISYARIAH",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "425",
-    "bankName": "PT BANK JABAR BANTEN SYARIAH",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK JABAR BANTEN SYARIAH"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "426",
-    "bankName": "PT BANK MEGA, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK MEGA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "441",
-    "bankName": "PT BANK BUKOPIN, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK KB BUKOPIN"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "451",
-    "bankName": "PT BANK SYARIAH MANDIRI",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK SYARIAH MANDIRI"
   },
   {
-    "bankCode": "466",
-    "bankName": "PT BANK ANDARA",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "50000000",
     "bankCode": "472",
-    "bankName": "PT BANK JASA JAKARTA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK JASA JAKARTA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "484",
-    "bankName": "PT BANK HANA",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK KEB HANA"
   },
   {
-    "bankCode": "484",
-    "bankName": "PT BANK KEB INDONESIA",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "485",
-    "bankName": "PT BANK ICB BUMIPUTERA Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "MNC BANK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "490",
-    "bankName": "PT BANK YUDHA BHAKTI",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK YUDHA BHAKTI"
   },
   {
-    "bankCode": "491",
-    "bankName": "PT BANK MITRANIAGA",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "50000000",
     "bankCode": "494",
-    "bankName": "PT BANK RAKYAT INDONESIA AGRONIAGA, TBK.",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK RAKYAT INDONESIA AGRONIAGA, TBK."
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "498",
-    "bankName": "PT BANK SBI INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK SBI INDONESIA"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "501",
-    "bankName": "PT BANK ROYAL INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK ROYAL INDONESIA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "503",
-    "bankName": "PT BANK NATIONALNOBU",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK NATIONALNOBU"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "506",
-    "bankName": "PT BANK MEGA SYARIAH",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK MEGA SYARIAH"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "513",
-    "bankName": "PT BANK INA PERDANA",
-    "maxAmountTransfer": "25000000"
+    "bankName": "PT BANK INA PERDANA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "517",
-    "bankName": "PT BANK PANIN SYARIAH",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK PANIN SYARIAH"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "520",
-    "bankName": "PT PRIMA MASTER BANK",
-    "maxAmountTransfer": "0"
+    "bankName": "PT PRIMA MASTER BANK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "523",
-    "bankName": "PT BANK SAHABAT SAMPOERNA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK SAHABAT SAMPOERNA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "526",
-    "bankName": "PT BANK DINAR INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK DINAR INDONESIA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "531",
-    "bankName": "PT ANGLOMAS INTERNASIONAL BANK",
-    "maxAmountTransfer": "0"
+    "bankName": "PT ANGLOMAS INTERNASIONAL BANK"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "535",
-    "bankName": "PT BANK KESEJAHTERAAN EKONOMI",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK KESEJAHTERAAN EKONOMI"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "536",
-    "bankName": "PT BANK BCA SYARIAH",
-    "maxAmountTransfer": "25000000"
+    "bankName": "PT BANK BCA SYARIAH"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "542",
-    "bankName": "PT BANK ARTOS INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK ARTOS INDONESIA"
   },
   {
+    "maxAmountTransfer": "99999999",
     "bankCode": "547",
-    "bankName": "PT BANK SAHABAT PURBA DANARTA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK SAHABAT PURBA DANARTA"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "548",
-    "bankName": "PT BANK MULTIARTA SENTOSA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK MULTIARTA SENTOSA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "553",
-    "bankName": "PT BANK MAYORA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK MAYORA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "555",
-    "bankName": "PT BANK INDEX SELINDO",
-    "maxAmountTransfer": "0"
+    "bankName": "BANK INDEX"
   },
   {
-    "bankCode": "558",
-    "bankName": "PT BANK PUNDI INDONESIA, Tbk",
-    "maxAmountTransfer": "0"
-  },
-  {
-    "bankCode": "559",
-    "bankName": "PT CENTRATAMA NASIONAL BANK",
-    "maxAmountTransfer": "0"
-  },
-  {
-    "bankCode": "562",
-    "bankName": "PT BANK FAMA INTERNASIONAL",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "564",
-    "bankName": "PT BANK SINAR HARAPAN BALI",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK SINAR HARAPAN BALI"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "566",
-    "bankName": "PT BANK VICTORIA INTERNATIONAL, Tbk",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK VICTORIA INTERNATIONAL, TBK"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "567",
-    "bankName": "PT BANK BISNIS INTERNASIONAL",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK BISNIS INTERNASIONAL"
   },
   {
-    "bankCode": "567",
-    "bankName": "PT BANK HARDA INTERNASIONAL",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "100000000",
     "bankCode": "774",
-    "bankName": "PT BANK SYARIAH BUKOPIN",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK SYARIAH BUKOPIN"
   },
   {
-    "bankCode": "777",
-    "bankName": "PT BANK MAYBANK SYARIAH INDONESIA",
-    "maxAmountTransfer": "0"
-  },
-  {
+    "maxAmountTransfer": "55000000",
     "bankCode": "911",
-    "bankName": "LINK AJA",
-    "maxAmountTransfer": "55000000"
+    "bankName": "LINK AJA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "945",
-    "bankName": "PT BANK AGRIS",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK AGRIS"
   },
   {
+    "maxAmountTransfer": "50000000",
     "bankCode": "949",
-    "bankName": "PT. BANK CHINATRUST INDONESIA",
-    "maxAmountTransfer": "0"
+    "bankName": "PT. BANK CHINATRUST INDONESIA"
   },
   {
+    "maxAmountTransfer": "100000000",
     "bankCode": "950",
-    "bankName": "PT BANK COMMONWEALTH",
-    "maxAmountTransfer": "0"
+    "bankName": "PT BANK COMMONWEALTH"
   }
 ]

@@ -75,9 +75,9 @@ func (cl *Client) DisbursementListBank() (banks []Bank, err error) {
 		logp = `DisbursementListBank`
 		req  = createRequest(cl.opts)
 		res  = struct {
+			Data interface{} `json:"Banks"`
 			Code string      `json:"responseCode"`
 			Desc string      `json:"responseDesc"`
-			Data interface{} `json:"Banks"`
 		}{}
 
 		httpRes *http.Response
