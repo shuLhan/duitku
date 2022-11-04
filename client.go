@@ -8,7 +8,9 @@ import (
 	"fmt"
 	"net/http"
 	"sort"
+	"strconv"
 	"strings"
+	"time"
 
 	libhttp "github.com/shuLhan/share/lib/http"
 )
@@ -16,6 +18,10 @@ import (
 const (
 	PathDisbursementListBank     = `/disbursement/listBank`
 	PathDisbursementCheckBalance = `/disbursement/checkBalance`
+
+	// Path for transfer online.
+	PathDisbursementInquiry        = `/disbursement/inquiry`
+	PathDisbursementInquirySandbox = `/disbursement/inquirysandbox` // Used when server URL is sandbox (testing).
 )
 
 type Client struct {
@@ -27,10 +33,16 @@ type Client struct {
 // NewClient create and initialize new Client.
 func NewClient(opts ClientOptions) (cl *Client, err error) {
 	var (
+		logp      = `NewClient`
 		httpcOpts = libhttp.ClientOptions{
 			ServerUrl: opts.ServerUrl,
 		}
 	)
+
+	err = opts.validate()
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
 
 	cl = &Client{
 		Client: libhttp.NewClient(&httpcOpts),
@@ -116,4 +128,57 @@ func (cl *Client) DisbursementListBank() (banks []Bank, err error) {
 	})
 
 	return banks, nil
+}
+
+// RtolInquiry get the information of the name of the account owner of the
+// transfer destination.
+//
+// After getting this information, customers can determine whether the purpose
+// of such a transfer is in accordance with the intended or not.
+// If appropriate, the customer can proceed to the transfer process.
+//
+// Ref: https://docs.duitku.com/disbursement/en/#transfer-online
+func (cl *Client) RtolInquiry(req RtolInquiry) (res *RtolInquiryResponse, err error) {
+	var (
+		now  = time.Now()
+		logp = `RtolInquiry`
+		path = PathDisbursementInquiry
+
+		resHttp *http.Response
+		resBody []byte
+	)
+
+	// Since the path is different in test environment, we check the host
+	// here to set it.
+	if cl.opts.host != hostLive {
+		path = PathDisbursementInquirySandbox
+	}
+
+	req.UserID, err = strconv.ParseInt(cl.opts.UserID, 10, 64)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %s`, logp, err)
+	}
+
+	req.Email = cl.opts.Email
+	req.Timestamp = now.UnixMilli()
+
+	req.sign(cl.opts.ApiKey)
+
+	resHttp, resBody, err = cl.PostJSON(path, nil, req)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if resHttp.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, resHttp.Status)
+	}
+
+	err = json.Unmarshal(resBody, &res)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if res.Code != resCodeSuccess {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
+	}
+
+	return res, nil
 }

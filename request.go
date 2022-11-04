@@ -7,19 +7,27 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"strconv"
 	"time"
 )
 
 // request define common HTTP request fields.
 type request struct {
-	UserID    string `json:"userID"`
-	Email     string `json:"email"`
+	// Merchant email, filled from ClientOptions.Email.
+	Email string `json:"email"`
+
+	// Hash of some fields in the request along with its ApiKey.
 	Signature string `json:"signature"`
-	Timestamp int64  `json:"timestamp"`
+
+	// Merchant ID, filled from ClientOptions.UserID.
+	UserID int64 `json:"userId"`
+
+	// Unix Timestamp in milliseconds.
+	Timestamp int64 `json:"timestamp"`
 }
 
 func createRequest(opts ClientOptions) (req request) {
-	req.UserID = opts.UserID
+	req.UserID, _ = strconv.ParseInt(opts.UserID, 10, 64)
 	req.Email = opts.Email
 	req.Timestamp = time.Now().UnixMilli()
 
