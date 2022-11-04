@@ -60,7 +60,7 @@ func NewClient(opts ClientOptions) (cl *Client, err error) {
 func (cl *Client) DisbursementCheckBalance() (bal *Balance, err error) {
 	var (
 		logp = `DisbursementCheckBalance`
-		req  = createRequest(cl.opts)
+		req  = CreateRequest(cl.opts)
 
 		httpRes *http.Response
 		resBody []byte
@@ -89,7 +89,7 @@ func (cl *Client) DisbursementCheckBalance() (bal *Balance, err error) {
 func (cl *Client) DisbursementListBank() (banks []Bank, err error) {
 	var (
 		logp = `DisbursementListBank`
-		req  = createRequest(cl.opts)
+		req  = CreateRequest(cl.opts)
 		res  = struct {
 			Data interface{} `json:"Banks"`
 			Code string      `json:"responseCode"`

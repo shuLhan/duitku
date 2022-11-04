@@ -4,7 +4,7 @@ import "github.com/shuLhan/share/lib/math/big"
 
 // Balance contains the current user balances.
 type Balance struct {
-	response
+	Response
 
 	// Current balance before settlement.
 	Current *big.Rat `json:"balance"`

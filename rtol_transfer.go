@@ -36,7 +36,7 @@ type rtolTransfer struct {
 	// Description of transfer purpose.
 	Purpose string `json:"purpose"`
 
-	request
+	Request
 
 	// Disbursement transfer amount.
 	Amount int64 `json:"amountTransfer"`

@@ -11,8 +11,8 @@ import (
 	"time"
 )
 
-// request define common HTTP request fields.
-type request struct {
+// Request define common HTTP request fields.
+type Request struct {
 	// Merchant email, filled from ClientOptions.Email.
 	Email string `json:"email"`
 
@@ -26,7 +26,7 @@ type request struct {
 	Timestamp int64 `json:"timestamp"`
 }
 
-func createRequest(opts ClientOptions) (req request) {
+func CreateRequest(opts ClientOptions) (req Request) {
 	req.UserID, _ = strconv.ParseInt(opts.UserID, 10, 64)
 	req.Email = opts.Email
 	req.Timestamp = time.Now().UnixMilli()

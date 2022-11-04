@@ -11,5 +11,5 @@ type RtolTransferResponse struct {
 	CustRefNumber string   `json:"custRefNumber"`
 	Amount        *big.Rat `json:"amountTransfer"`
 
-	response
+	Response
 }

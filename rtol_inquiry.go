@@ -26,7 +26,7 @@ type RtolInquiry struct {
 	// Customer name provided by merchant.
 	SenderName string `json:"senderName"`
 
-	request
+	Request
 
 	// Customer ID provided by merchant.
 	SenderID int64 `json:"senderID"`

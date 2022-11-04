@@ -4,7 +4,7 @@ import "github.com/shuLhan/share/lib/math/big"
 
 // RtolInquiryResponse contains response from inquiry for Online Transfer.
 type RtolInquiryResponse struct {
-	response
+	Response
 
 	// Email sent when inquiry process.
 	Email string `json:"email"`
