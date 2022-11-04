@@ -15,13 +15,17 @@ import (
 	libhttp "github.com/shuLhan/share/lib/http"
 )
 
+// List of known and implemented HTTP API paths.
 const (
 	PathDisbursementListBank     = `/disbursement/listBank`
 	PathDisbursementCheckBalance = `/disbursement/checkBalance`
 
-	// Path for transfer online.
+	// Paths for transfer online.
 	PathDisbursementInquiry        = `/disbursement/inquiry`
-	PathDisbursementInquirySandbox = `/disbursement/inquirysandbox` // Used when server URL is sandbox (testing).
+	PathDisbursementInquirySandbox = `/disbursement/inquirysandbox` // Used for testing.
+
+	PathDisbursementTransfer        = `/disbursement/transfer`
+	PathDisbursementTransferSandbox = `/disbursement/transfersandbox` // Used for testing.
 )
 
 type Client struct {
@@ -171,6 +175,57 @@ func (cl *Client) RtolInquiry(req RtolInquiry) (res *RtolInquiryResponse, err er
 	if resHttp.StatusCode >= 500 {
 		return nil, fmt.Errorf(`%s: %s`, logp, resHttp.Status)
 	}
+
+	err = json.Unmarshal(resBody, &res)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if res.Code != resCodeSuccess {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
+	}
+
+	return res, nil
+}
+
+// RtolTransfer do the actual transfer to customer's bank account using the
+// request and response from call to RtolInquiry.
+//
+// Transfer will be limited from 25 to 50 Million per transaction depending on
+// the beneficiary bank account.
+//
+// Ref: https://docs.duitku.com/disbursement/en/#online-transfer-transfer-request
+func (cl *Client) RtolTransfer(inquiryReq RtolInquiry, inquiryRes RtolInquiryResponse) (res *RtolTransferResponse, err error) {
+	var (
+		logp = `RtolTransfer`
+		path = PathDisbursementTransfer
+
+		req     *rtolTransfer
+		resHttp *http.Response
+		resBody []byte
+	)
+
+	// Since the path is different in test environment, we check the host
+	// here to set it.
+	if cl.opts.host != hostLive {
+		path = PathDisbursementTransferSandbox
+	}
+
+	req = newRtolTransfer(&inquiryReq, &inquiryRes)
+
+	err = req.sign(cl.opts)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+
+	resHttp, resBody, err = cl.PostJSON(path, nil, req)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if resHttp.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, resHttp.Status)
+	}
+
+	fmt.Printf(`%s: %s`, logp, resBody)
 
 	err = json.Unmarshal(resBody, &res)
 	if err != nil {

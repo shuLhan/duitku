@@ -1,0 +1,16 @@
+Test disbursement online transfer.
+
+Ref: https://docs.duitku.com/disbursement/en/#transfer-online
+
+>>> request_inquiry.json
+{
+  "userId": 3551,
+  "email": "test@chakratechnology.com",
+  "amountTransfer": 10000,
+  "bankAccount": "8760673566",
+  "bankCode": "002",
+  "purpose": "Test Transfer Online Inquiry with duitku.",
+  "timestamp": 1506486841000,
+  "senderId": 123456789,
+  "senderName": "John Doe"
+}
