@@ -26,6 +26,13 @@ const (
 
 	PathDisbursementTransfer        = `/disbursement/transfer`
 	PathDisbursementTransferSandbox = `/disbursement/transfersandbox` // Used for testing.
+
+	// Paths for Clearing.
+	PathDisbursementInquiryClearing        = `/disbursement/inquiryclearing`
+	PathDisbursementInquiryClearingSandbox = `/disbursement/inquiryclearingsandbox` // Used for testing.
+
+	PathDisbursementTransferClearing        = `/disbursement/transferclearing`
+	PathDisbursementTransferClearingSandbox = `/disbursement/transferclearingsandbox` // Used for testing.
 )
 
 type Client struct {
@@ -83,6 +90,46 @@ func (cl *Client) CheckBalance() (bal *Balance, err error) {
 	}
 
 	return bal, nil
+}
+
+// ClearingInquiry initiate the transfer for Clearing using LLG, RTGS, H2H, or
+// BI-FAST.
+func (cl *Client) ClearingInquiry(req ClearingInquiry) (res *ClearingInquiryResponse, err error) {
+	var (
+		logp = `ClearingInquiry`
+		path = PathDisbursementInquiryClearing
+
+		httpRes *http.Response
+		resBody []byte
+	)
+
+	req.sign(cl.opts)
+
+	// Since the path is different in test environment, we check the host
+	// here to set it.
+	if cl.opts.host != hostLive {
+		path = PathDisbursementInquiryClearingSandbox
+	}
+
+	httpRes, resBody, err = cl.PostJSON(path, nil, req)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if httpRes.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
+	}
+
+	fmt.Printf(`%s: resBody: %s\n`, logp, resBody)
+
+	err = json.Unmarshal(resBody, &res)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if res.Code != resCodeSuccess {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
+	}
+
+	return res, nil
 }
 
 // tListBank fetch list of banks for disbursement.

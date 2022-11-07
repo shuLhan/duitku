@@ -44,7 +44,40 @@ func TestClient_CheckBalance(t *testing.T) {
 	test.Assert(t, `CheckBalance`, string(exp), string(got))
 }
 
-func TestClient_RtolInquiry_live(t *testing.T) {
+func TestClient_ClearingInquiry_sandbox(t *testing.T) {
+	t.Skip(`This test require external call to server`)
+
+	var (
+		inquiryReq ClearingInquiry
+		err        error
+		tdata      *test.Data
+		inquiryRes *ClearingInquiryResponse
+	)
+
+	tdata, err = test.LoadData(`testdata/disbursement/clearing_inquiry_test.txt`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = json.Unmarshal(tdata.Input[`request.json`], &inquiryReq)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	inquiryRes, err = testClient.ClearingInquiry(inquiryReq)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// We cannot compare the response, because for each call to server
+	// it will return different DisburseID.
+
+	t.Logf(`inquiryRes: %+v`, inquiryRes)
+
+	test.Assert(t, `AccountName`, `Test Account`, inquiryRes.AccountName)
+}
+
+func TestClient_RtolInquiry_sandbox(t *testing.T) {
 	t.Skip(`This test require external call to server`)
 
 	var (

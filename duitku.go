@@ -12,3 +12,31 @@ const (
 
 	hostLive = `passport.duitku.com`
 )
+
+const (
+	// LLG (Lalu Lintas Giro) is interbank transfer that cover more than
+	// 130 bank in Indonesia.
+	// The maximal amount transfer is IDR 500.000.000.
+	// Transfer process follows the BI (Bank Indonesia) schedule, which is
+	// 8.00-15.00 on business days.
+	ClearingTypeLLG = `LLG`
+
+	// RTGS (Real Time Gross Settlement) is interbank transfer that cover
+	// more than 130 bank in Indonesia.
+	// The minimal amount transfer is IDR 100.000.000.
+	// Transfer process follows the BI (Bank Indonesia) schedule, which is
+	// 8.00-15.00 on business days.
+	ClearingTypeRTGS = `RTGS`
+
+	// H2H (Bank Host to Host) Duitku Host to Host connection to bank, to
+	// ensure direct connection and better reliability.
+	// Currently only support 4 Major banks in Indonesia (BNI, BRI,
+	// Mandiri, Permata).
+	// Transfer schedule follows the schedule of each bank.
+	ClearingTypeH2H = `H2H`
+
+	// BIFAST (Bank Indonesia Fast Payment) National retail payments that
+	// can facilitate retail payments in real-time, safe, efficient, more
+	// affordable service fees and available at any time (24/7).
+	ClearingTypeBIFAST = `BIFAST`
+)
