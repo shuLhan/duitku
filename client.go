@@ -130,6 +130,50 @@ func (cl *Client) ClearingInquiry(req ClearingInquiry) (res *ClearingInquiryResp
 	return res, nil
 }
 
+// ClearingTransfer do the clearing transfer using request and response from
+// Clearing Inquiry.
+//
+// The following fields are set from response: AccountName, CustRefNumber,
+// DisburseID, and Type.
+func (cl *Client) ClearingTransfer(inquiryReq ClearingInquiry, inquiryRes ClearingInquiryResponse) (
+	transferRes *ClearingTransferResponse, err error,
+) {
+	var (
+		logp        = `ClearingTransfer`
+		path        = PathDisbursementTransferClearing
+		transferReq = createClearingTransfer(inquiryReq, inquiryRes)
+
+		httpRes *http.Response
+		resBody []byte
+	)
+
+	transferReq.sign(cl.opts)
+
+	// Since the path is different in test environment, we check the host
+	// here to set it.
+	if cl.opts.host != hostLive {
+		path = PathDisbursementTransferClearingSandbox
+	}
+
+	httpRes, resBody, err = cl.PostJSON(path, nil, transferReq)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if httpRes.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
+	}
+
+	err = json.Unmarshal(resBody, &transferRes)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if transferRes.Code != resCodeSuccess {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, transferRes.Code, transferRes.Desc)
+	}
+
+	return transferRes, nil
+}
+
 // tListBank fetch list of banks for disbursement.
 func (cl *Client) ListBank() (banks []Bank, err error) {
 	var (

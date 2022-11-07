@@ -77,6 +77,45 @@ func TestClient_ClearingInquiry_sandbox(t *testing.T) {
 	test.Assert(t, `AccountName`, `Test Account`, inquiryRes.AccountName)
 }
 
+func TestClient_ClearingTransfer_sandbox(t *testing.T) {
+	t.Skip(`This test require external call to server`)
+
+	var (
+		inquiryReq ClearingInquiry
+		inquiryRes ClearingInquiryResponse
+
+		err         error
+		tdata       *test.Data
+		transferRes *ClearingTransferResponse
+	)
+
+	tdata, err = test.LoadData(`testdata/disbursement/clearing_transfer_test.txt`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = json.Unmarshal(tdata.Input[`inquiry_request.json`], &inquiryReq)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = json.Unmarshal(tdata.Input[`inquiry_response.json`], &inquiryRes)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	transferRes, err = testClient.ClearingTransfer(inquiryReq, inquiryRes)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// We cannot compare the response, because for each call to server
+	// it will return different DisburseID.
+
+	t.Logf(`transferRes: %+v`, transferRes)
+
+	test.Assert(t, `AccountName`, `Test Account`, transferRes.AccountName)
+}
+
 func TestClient_RtolInquiry_sandbox(t *testing.T) {
 	t.Skip(`This test require external call to server`)
 
