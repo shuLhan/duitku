@@ -117,8 +117,6 @@ func (cl *Client) ClearingInquiry(req ClearingInquiry) (res *ClearingInquiryResp
 		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
 	}
 
-	fmt.Printf(`%s: resBody: %s\n`, logp, resBody)
-
 	err = json.Unmarshal(resBody, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)

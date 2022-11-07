@@ -12,10 +12,10 @@ import (
 //
 // For Signature it use the following formula:
 //
-// SHA256(email + timestamp + bankCode + type + bankAccount + amountTransfer
-// + purpose + apiKey).
+//	SHA256(email + timestamp + bankCode + type + bankAccount +
+//		amountTransfer + purpose + apiKey)
 //
-// [Clearing type]: // https://docs.duitku.com/disbursement/en/#clearing-inquiry-request
+// [Clearing type]: https://docs.duitku.com/disbursement/en/#clearing-inquiry-request
 type ClearingInquiry struct {
 	// 9 digits customer reference number.
 	CustRefNumber string `json:"custRefNumber"`
