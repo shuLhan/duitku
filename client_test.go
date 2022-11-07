@@ -10,7 +10,7 @@ import (
 	"github.com/shuLhan/share/lib/test"
 )
 
-func TestClient_DisbursementCheckBalance(t *testing.T) {
+func TestClient_CheckBalance(t *testing.T) {
 	var (
 		tdata   *test.Data
 		balance *Balance
@@ -24,7 +24,7 @@ func TestClient_DisbursementCheckBalance(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	balance, err = testClient.DisbursementCheckBalance()
+	balance, err = testClient.CheckBalance()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,7 +41,7 @@ func TestClient_DisbursementCheckBalance(t *testing.T) {
 
 	exp = tdata.Output[`response.json`]
 
-	test.Assert(t, `DisbursementCheckBalance`, string(exp), string(got))
+	test.Assert(t, `CheckBalance`, string(exp), string(got))
 }
 
 func TestClient_RtolInquiry_live(t *testing.T) {
@@ -116,7 +116,7 @@ func TestClient_RtolTransfer_sandbox(t *testing.T) {
 	test.Assert(t, `AccountName`, `Test Account`, inquiryRes.AccountName)
 }
 
-func TestClient_DisbursementListBank(t *testing.T) {
+func TestClient_ListBank(t *testing.T) {
 	var (
 		tdata *test.Data
 		err   error
@@ -130,7 +130,7 @@ func TestClient_DisbursementListBank(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	banks, err = testClient.DisbursementListBank()
+	banks, err = testClient.ListBank()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -144,5 +144,5 @@ func TestClient_DisbursementListBank(t *testing.T) {
 
 	exp = tdata.Output[`response.json`]
 
-	test.Assert(t, `DisbursementListBank`, string(exp), string(got))
+	test.Assert(t, `ListBank`, string(exp), string(got))
 }

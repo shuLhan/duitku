@@ -56,10 +56,10 @@ func NewClient(opts ClientOptions) (cl *Client, err error) {
 	return cl, nil
 }
 
-// DisbursementCheckBalance get the current balances.
-func (cl *Client) DisbursementCheckBalance() (bal *Balance, err error) {
+// CheckBalance get the current balances.
+func (cl *Client) CheckBalance() (bal *Balance, err error) {
 	var (
-		logp = `DisbursementCheckBalance`
+		logp = `CheckBalance`
 		req  = CreateRequest(cl.opts)
 
 		httpRes *http.Response
@@ -85,10 +85,10 @@ func (cl *Client) DisbursementCheckBalance() (bal *Balance, err error) {
 	return bal, nil
 }
 
-// DisbursementListBank fetch list of banks for disbursement.
-func (cl *Client) DisbursementListBank() (banks []Bank, err error) {
+// tListBank fetch list of banks for disbursement.
+func (cl *Client) ListBank() (banks []Bank, err error) {
 	var (
-		logp = `DisbursementListBank`
+		logp = `ListBank`
 		req  = CreateRequest(cl.opts)
 		res  = struct {
 			Data interface{} `json:"Banks"`
