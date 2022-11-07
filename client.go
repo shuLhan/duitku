@@ -8,9 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"sort"
-	"strconv"
 	"strings"
-	"time"
 
 	libhttp "github.com/shuLhan/share/lib/http"
 )
@@ -191,7 +189,6 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 // Ref: https://docs.duitku.com/disbursement/en/#transfer-online
 func (cl *Client) RtolInquiry(req RtolInquiry) (res *RtolInquiryResponse, err error) {
 	var (
-		now  = time.Now()
 		logp = `RtolInquiry`
 		path = PathDisbursementInquiry
 
@@ -205,15 +202,7 @@ func (cl *Client) RtolInquiry(req RtolInquiry) (res *RtolInquiryResponse, err er
 		path = PathDisbursementInquirySandbox
 	}
 
-	req.UserID, err = strconv.ParseInt(cl.opts.UserID, 10, 64)
-	if err != nil {
-		return nil, fmt.Errorf(`%s: %s`, logp, err)
-	}
-
-	req.Email = cl.opts.Email
-	req.Timestamp = now.UnixMilli()
-
-	req.sign(cl.opts.ApiKey)
+	req.sign(cl.opts)
 
 	resHttp, resBody, err = cl.PostJSON(path, nil, req)
 	if err != nil {
@@ -258,11 +247,7 @@ func (cl *Client) RtolTransfer(inquiryReq RtolInquiry, inquiryRes RtolInquiryRes
 	}
 
 	req = newRtolTransfer(&inquiryReq, &inquiryRes)
-
-	err = req.sign(cl.opts)
-	if err != nil {
-		return nil, fmt.Errorf(`%s: %w`, logp, err)
-	}
+	req.sign(cl.opts)
 
 	resHttp, resBody, err = cl.PostJSON(path, nil, req)
 	if err != nil {

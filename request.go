@@ -7,7 +7,6 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	"strconv"
 	"time"
 )
 
@@ -27,7 +26,7 @@ type Request struct {
 }
 
 func CreateRequest(opts ClientOptions) (req Request) {
-	req.UserID, _ = strconv.ParseInt(opts.UserID, 10, 64)
+	req.UserID = opts.UserID
 	req.Email = opts.Email
 	req.Timestamp = time.Now().UnixMilli()
 

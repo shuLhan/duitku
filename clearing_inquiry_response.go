@@ -5,7 +5,7 @@ package duitku
 //
 // [Clearing Inquiry request]: https://docs.duitku.com/disbursement/en/#clearing-inquiry-request
 type ClearingInquiryResponse struct {
-	RtolInquiryResponse
-
 	Type string `json:"type"`
+
+	RtolInquiryResponse
 }

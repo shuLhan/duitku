@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"time"
 )
 
 // RtolInquiry contains request to initiate transfer from merchant to
@@ -35,11 +36,15 @@ type RtolInquiry struct {
 	Amount int64 `json:"amountTransfer"`
 }
 
-func (inq *RtolInquiry) sign(apiKey string) {
+func (inq *RtolInquiry) sign(opts ClientOptions) {
+	inq.UserID = opts.UserID
+	inq.Email = opts.Email
+	inq.Timestamp = time.Now().UnixMilli()
+
 	var (
 		plain = fmt.Sprintf(`%s%d%s%s%d%s%s`, inq.Email,
 			inq.Timestamp, inq.BankCode, inq.BankAccount,
-			inq.Amount, inq.Purpose, apiKey)
+			inq.Amount, inq.Purpose, opts.ApiKey)
 		plainHash [sha256.Size]byte = sha256.Sum256([]byte(plain))
 	)
 	inq.Signature = hex.EncodeToString(plainHash[:])

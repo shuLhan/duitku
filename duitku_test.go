@@ -18,7 +18,7 @@ func TestMain(m *testing.M) {
 		clOpts = ClientOptions{
 			ServerUrl: ServerUrlSandbox,
 			Email:     `test@chakratechnology.com`,
-			UserID:    `3551`,
+			UserID:    3551,
 			ApiKey:    `de56f832487bc1ce1de5ff2cfacf8d9486c61da69df6fd61d5537b6b7d6d354d`,
 		}
 

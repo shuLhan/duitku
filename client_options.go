@@ -6,21 +6,18 @@ package duitku
 import (
 	"fmt"
 	"net/url"
-	"strconv"
 )
 
 // ClientOptions configuration for HTTP client.
 type ClientOptions struct {
 	ServerUrl string
-	UserID    string
 	Email     string
 	ApiKey    string
 
 	// The hostname extracted from ServerUrl.
 	host string
 
-	// The UserID converted to int64.
-	userID int64
+	UserID int64
 }
 
 // validate each field values.
@@ -35,14 +32,9 @@ func (opts *ClientOptions) validate() (err error) {
 	}
 	opts.host = urlServer.Host
 
-	if len(opts.UserID) == 0 {
-		return fmt.Errorf(`invalid or empty UserID: %s`, opts.UserID)
+	if opts.UserID <= 0 {
+		return fmt.Errorf(`invalid or empty UserID: %d`, opts.UserID)
 	}
-	opts.userID, err = strconv.ParseInt(opts.UserID, 10, 64)
-	if err != nil {
-		return fmt.Errorf(`invalid or empty UserID: %s`, opts.UserID)
-	}
-
 	if len(opts.Email) == 0 {
 		return fmt.Errorf(`invalid or empty Email: %s`, opts.Email)
 	}

@@ -27,7 +27,7 @@ type ClearingInquiry struct {
 }
 
 func (inq *ClearingInquiry) sign(opts ClientOptions) {
-	inq.UserID = opts.userID
+	inq.UserID = opts.UserID
 	inq.Email = opts.Email
 	inq.Timestamp = time.Now().UnixMilli()
 

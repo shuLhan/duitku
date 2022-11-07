@@ -5,7 +5,6 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	"strconv"
 	"time"
 )
 
@@ -62,20 +61,15 @@ func newRtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryResponse) (
 	return req
 }
 
-func (req *rtolTransfer) sign(opts ClientOptions) (err error) {
+func (req *rtolTransfer) sign(opts ClientOptions) {
 	var (
-		logp = `sign`
-		now  = time.Now()
+		now = time.Now()
 
 		bb        bytes.Buffer
 		plainHash [sha256.Size]byte
 	)
 
-	req.UserID, err = strconv.ParseInt(opts.UserID, 10, 64)
-	if err != nil {
-		return fmt.Errorf(`%s: %s`, logp, err)
-	}
-
+	req.UserID = opts.UserID
 	req.Email = opts.Email
 	req.Timestamp = now.UnixMilli()
 
@@ -87,6 +81,4 @@ func (req *rtolTransfer) sign(opts ClientOptions) (err error) {
 	plainHash = sha256.Sum256(bb.Bytes())
 
 	req.Signature = hex.EncodeToString(plainHash[:])
-
-	return nil
 }
