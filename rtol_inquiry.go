@@ -10,8 +10,10 @@ import (
 // RtolInquiry contains request to initiate transfer from merchant to
 // customer's bank account using [Online Transfer].
 //
-// The signature formula is SHA256(email + timestamp + bankCode +
-// bankAccount + amountTransfer + purpose + apiKey).
+// The signature formula is:
+//
+//	SHA256(email + timestamp + bankCode + bankAccount + amountTransfer +
+//		purpose + apiKey)
 //
 // [Online Transfer]: https://docs.duitku.com/disbursement/en/#online-transfer-inquiry-request
 type RtolInquiry struct {

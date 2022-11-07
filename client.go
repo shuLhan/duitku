@@ -299,8 +299,6 @@ func (cl *Client) RtolTransfer(inquiryReq RtolInquiry, inquiryRes RtolInquiryRes
 		return nil, fmt.Errorf(`%s: %s`, logp, resHttp.Status)
 	}
 
-	fmt.Printf(`%s: %s`, logp, resBody)
-
 	err = json.Unmarshal(resBody, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
