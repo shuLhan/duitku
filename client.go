@@ -92,7 +92,7 @@ func (cl *Client) CheckBalance() (bal *Balance, err error) {
 
 // ClearingInquiry initiate the transfer for Clearing using LLG, RTGS, H2H, or
 // BI-FAST.
-func (cl *Client) ClearingInquiry(req ClearingInquiry) (res *ClearingInquiryResponse, err error) {
+func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryResponse, err error) {
 	var (
 		logp = `ClearingInquiry`
 		path = PathDisbursementInquiryClearing
@@ -133,13 +133,13 @@ func (cl *Client) ClearingInquiry(req ClearingInquiry) (res *ClearingInquiryResp
 //
 // The following fields are set from response: AccountName, CustRefNumber,
 // DisburseID, and Type.
-func (cl *Client) ClearingTransfer(inquiryReq ClearingInquiry, inquiryRes ClearingInquiryResponse) (
+func (cl *Client) ClearingTransfer(inquiryReq *ClearingInquiry, inquiryRes *ClearingInquiryResponse) (
 	transferRes *ClearingTransferResponse, err error,
 ) {
 	var (
 		logp        = `ClearingTransfer`
 		path        = PathDisbursementTransferClearing
-		transferReq = createClearingTransfer(inquiryReq, inquiryRes)
+		transferReq = newClearingTransfer(inquiryReq, inquiryRes)
 
 		httpRes *http.Response
 		resBody []byte
@@ -229,7 +229,7 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 // If appropriate, the customer can proceed to the transfer process.
 //
 // Ref: https://docs.duitku.com/disbursement/en/#transfer-online
-func (cl *Client) RtolInquiry(req RtolInquiry) (res *RtolInquiryResponse, err error) {
+func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err error) {
 	var (
 		logp = `RtolInquiry`
 		path = PathDisbursementInquiry
@@ -272,7 +272,7 @@ func (cl *Client) RtolInquiry(req RtolInquiry) (res *RtolInquiryResponse, err er
 // the beneficiary bank account.
 //
 // Ref: https://docs.duitku.com/disbursement/en/#online-transfer-transfer-request
-func (cl *Client) RtolTransfer(inquiryReq RtolInquiry, inquiryRes RtolInquiryResponse) (res *RtolTransferResponse, err error) {
+func (cl *Client) RtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryResponse) (res *RtolTransferResponse, err error) {
 	var (
 		logp = `RtolTransfer`
 		path = PathDisbursementTransfer
@@ -288,7 +288,7 @@ func (cl *Client) RtolTransfer(inquiryReq RtolInquiry, inquiryRes RtolInquiryRes
 		path = PathDisbursementTransferSandbox
 	}
 
-	req = newRtolTransfer(&inquiryReq, &inquiryRes)
+	req = newRtolTransfer(inquiryReq, inquiryRes)
 	req.sign(cl.opts)
 
 	resHttp, resBody, err = cl.PostJSON(path, nil, req)

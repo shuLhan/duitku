@@ -64,7 +64,7 @@ func TestClient_ClearingInquiry_sandbox(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	inquiryRes, err = testClient.ClearingInquiry(inquiryReq)
+	inquiryRes, err = testClient.ClearingInquiry(&inquiryReq)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -103,7 +103,7 @@ func TestClient_ClearingTransfer_sandbox(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	transferRes, err = testClient.ClearingTransfer(inquiryReq, inquiryRes)
+	transferRes, err = testClient.ClearingTransfer(&inquiryReq, &inquiryRes)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -136,7 +136,7 @@ func TestClient_RtolInquiry_sandbox(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	inquiryRes, err = testClient.RtolInquiry(inquiryReq)
+	inquiryRes, err = testClient.RtolInquiry(&inquiryReq)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -170,12 +170,12 @@ func TestClient_RtolTransfer_sandbox(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	inquiryRes, err = testClient.RtolInquiry(*inquiryReq)
+	inquiryRes, err = testClient.RtolInquiry(inquiryReq)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	transferRes, err = testClient.RtolTransfer(*inquiryReq, *inquiryRes)
+	transferRes, err = testClient.RtolTransfer(inquiryReq, inquiryRes)
 	if err != nil {
 		t.Fatal(err)
 	}

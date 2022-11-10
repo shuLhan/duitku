@@ -26,12 +26,14 @@ type clearingTransfer struct {
 	rtolTransfer
 }
 
-// createClearingTransfer create clearingTransfer from Clearing Inquiry
+// newClearingTransfer create clearingTransfer from Clearing Inquiry
 // request and response.
 //
 // The following fields are set from response: AccountName, CustRefNumber,
 // DisburseID, and Type.
-func createClearingTransfer(inqReq ClearingInquiry, inqRes ClearingInquiryResponse) (trf clearingTransfer) {
+func newClearingTransfer(inqReq *ClearingInquiry, inqRes *ClearingInquiryResponse) (trf *clearingTransfer) {
+	trf = &clearingTransfer{}
+
 	trf.Amount = inqReq.Amount
 	trf.BankAccount = inqReq.BankAccount
 	trf.BankCode = inqReq.BankCode
