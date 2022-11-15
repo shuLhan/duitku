@@ -15,22 +15,22 @@ import (
 
 // List of known and implemented HTTP API paths.
 const (
-	PathDisbursementListBank     = `/disbursement/listBank`
-	PathDisbursementCheckBalance = `/disbursement/checkBalance`
+	PathListBank     = `/webapi/api/disbursement/listBank`
+	PathCheckBalance = `/webapi/api/disbursement/checkBalance`
 
 	// Paths for transfer online.
-	PathDisbursementInquiry        = `/disbursement/inquiry`
-	PathDisbursementInquirySandbox = `/disbursement/inquirysandbox` // Used for testing.
+	PathInquiry        = `/webapi/api/disbursement/inquiry`
+	PathInquirySandbox = `/webapi/api/disbursement/inquirysandbox` // Used for testing.
 
-	PathDisbursementTransfer        = `/disbursement/transfer`
-	PathDisbursementTransferSandbox = `/disbursement/transfersandbox` // Used for testing.
+	PathTransfer        = `/webapi/api/disbursement/transfer`
+	PathTransferSandbox = `/webapi/api/disbursement/transfersandbox` // Used for testing.
 
 	// Paths for Clearing.
-	PathDisbursementInquiryClearing        = `/disbursement/inquiryclearing`
-	PathDisbursementInquiryClearingSandbox = `/disbursement/inquiryclearingsandbox` // Used for testing.
+	PathInquiryClearing        = `/webapi/api/disbursement/inquiryclearing`
+	PathInquiryClearingSandbox = `/webapi/api/disbursement/inquiryclearingsandbox` // Used for testing.
 
-	PathDisbursementTransferClearing        = `/disbursement/transferclearing`
-	PathDisbursementTransferClearingSandbox = `/disbursement/transferclearingsandbox` // Used for testing.
+	PathTransferClearing        = `/webapi/api/disbursement/transferclearing`
+	PathTransferClearingSandbox = `/webapi/api/disbursement/transferclearingsandbox` // Used for testing.
 )
 
 type Client struct {
@@ -71,7 +71,7 @@ func (cl *Client) CheckBalance() (bal *Balance, err error) {
 		resBody []byte
 	)
 
-	httpRes, resBody, err = cl.PostJSON(PathDisbursementCheckBalance, nil, req)
+	httpRes, resBody, err = cl.PostJSON(PathCheckBalance, nil, req)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -95,7 +95,7 @@ func (cl *Client) CheckBalance() (bal *Balance, err error) {
 func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryResponse, err error) {
 	var (
 		logp = `ClearingInquiry`
-		path = PathDisbursementInquiryClearing
+		path = PathInquiryClearing
 
 		httpRes *http.Response
 		resBody []byte
@@ -106,7 +106,7 @@ func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryRes
 	// Since the path is different in test environment, we check the host
 	// here to set it.
 	if cl.opts.host != hostLive {
-		path = PathDisbursementInquiryClearingSandbox
+		path = PathInquiryClearingSandbox
 	}
 
 	httpRes, resBody, err = cl.PostJSON(path, nil, req)
@@ -138,7 +138,7 @@ func (cl *Client) ClearingTransfer(inquiryReq *ClearingInquiry, inquiryRes *Clea
 ) {
 	var (
 		logp        = `ClearingTransfer`
-		path        = PathDisbursementTransferClearing
+		path        = PathTransferClearing
 		transferReq = newClearingTransfer(inquiryReq, inquiryRes)
 
 		httpRes *http.Response
@@ -150,7 +150,7 @@ func (cl *Client) ClearingTransfer(inquiryReq *ClearingInquiry, inquiryRes *Clea
 	// Since the path is different in test environment, we check the host
 	// here to set it.
 	if cl.opts.host != hostLive {
-		path = PathDisbursementTransferClearingSandbox
+		path = PathTransferClearingSandbox
 	}
 
 	httpRes, resBody, err = cl.PostJSON(path, nil, transferReq)
@@ -187,7 +187,7 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 		resBody []byte
 	)
 
-	httpRes, resBody, err = cl.PostJSON(PathDisbursementListBank, nil, req)
+	httpRes, resBody, err = cl.PostJSON(PathListBank, nil, req)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -232,7 +232,7 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err error) {
 	var (
 		logp = `RtolInquiry`
-		path = PathDisbursementInquiry
+		path = PathInquiry
 
 		resHttp *http.Response
 		resBody []byte
@@ -241,7 +241,7 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 	// Since the path is different in test environment, we check the host
 	// here to set it.
 	if cl.opts.host != hostLive {
-		path = PathDisbursementInquirySandbox
+		path = PathInquirySandbox
 	}
 
 	req.sign(cl.opts)
@@ -275,7 +275,7 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 func (cl *Client) RtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryResponse) (res *RtolTransferResponse, err error) {
 	var (
 		logp = `RtolTransfer`
-		path = PathDisbursementTransfer
+		path = PathTransfer
 
 		req     *rtolTransfer
 		resHttp *http.Response
@@ -285,7 +285,7 @@ func (cl *Client) RtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryR
 	// Since the path is different in test environment, we check the host
 	// here to set it.
 	if cl.opts.host != hostLive {
-		path = PathDisbursementTransferSandbox
+		path = PathTransferSandbox
 	}
 
 	req = newRtolTransfer(inquiryReq, inquiryRes)

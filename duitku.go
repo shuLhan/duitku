@@ -7,8 +7,8 @@
 package duitku
 
 const (
-	ServerUrlLive    = `https://passport.duitku.com/webapi/api`
-	ServerUrlSandbox = `https://sandbox.duitku.com/webapi/api`
+	ServerUrlLive    = `https://passport.duitku.com`
+	ServerUrlSandbox = `https://sandbox.duitku.com`
 
 	hostLive = `passport.duitku.com`
 )
