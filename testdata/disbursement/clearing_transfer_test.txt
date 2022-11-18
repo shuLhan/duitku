@@ -7,7 +7,7 @@
   "email": "test@chakratechnology.com",
   "amountTransfer": 10000,
   "bankCode": "014",
-  "bankAccount": "8760673466",
+  "bankAccount": "8760673566",
   "purpose": "Test Clearing Inquiry with duitku.",
   "timestamp": 1506486841000,
   "custRefNumber": "12345789",
@@ -20,7 +20,7 @@
 {
   "email": "test@chakratechnology.com",
   "bankCode": "014",
-  "bankAccount": "8760673466",
+  "bankAccount": "8760673566",
   "amountTransfer": 10000,
   "accountName": "Test Account",
   "custRefNumber": "12345789",
@@ -34,7 +34,7 @@
 {
   "email": "test@chakratechnology.com",
   "bankCode": "014",
-  "bankAccount": "8760673466",
+  "bankAccount": "8760673566",
   "amountTransfer": 10000,
   "accountName": "Test Account",
   "custRefNumber": "12345789",
