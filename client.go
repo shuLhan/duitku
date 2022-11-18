@@ -101,7 +101,7 @@ func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryRes
 		resBody []byte
 	)
 
-	req.sign(cl.opts)
+	req.Sign(cl.opts)
 
 	// Since the path is different in test environment, we check the host
 	// here to set it.
@@ -139,13 +139,13 @@ func (cl *Client) ClearingTransfer(inquiryReq *ClearingInquiry, inquiryRes *Clea
 	var (
 		logp        = `ClearingTransfer`
 		path        = PathTransferClearing
-		transferReq = newClearingTransfer(inquiryReq, inquiryRes)
+		transferReq = NewClearingTransfer(inquiryReq, inquiryRes)
 
 		httpRes *http.Response
 		resBody []byte
 	)
 
-	transferReq.sign(cl.opts)
+	transferReq.Sign(cl.opts)
 
 	// Since the path is different in test environment, we check the host
 	// here to set it.
@@ -244,7 +244,7 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 		path = PathInquirySandbox
 	}
 
-	req.sign(cl.opts)
+	req.Sign(cl.opts)
 
 	resHttp, resBody, err = cl.PostJSON(path, nil, req)
 	if err != nil {
@@ -277,7 +277,7 @@ func (cl *Client) RtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryR
 		logp = `RtolTransfer`
 		path = PathTransfer
 
-		req     *rtolTransfer
+		req     *RtolTransfer
 		resHttp *http.Response
 		resBody []byte
 	)
@@ -288,8 +288,8 @@ func (cl *Client) RtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryR
 		path = PathTransferSandbox
 	}
 
-	req = newRtolTransfer(inquiryReq, inquiryRes)
-	req.sign(cl.opts)
+	req = NewRtolTransfer(inquiryReq, inquiryRes)
+	req.Sign(cl.opts)
 
 	resHttp, resBody, err = cl.PostJSON(path, nil, req)
 	if err != nil {

@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-// rtolTransfer containts request to transfer amount from merchant to
+// RtolTransfer containts request to transfer amount from merchant to
 // customer's bank account, using the previous data obtained from the inquiry
 // process.
 //
@@ -20,7 +20,7 @@ import (
 // disburseId + secretKey).
 //
 // Ref: https://docs.duitku.com/disbursement/en/#online-transfer-transfer-request
-type rtolTransfer struct {
+type RtolTransfer struct {
 	// Bank Account owner, obtained after getting a response from the
 	// inquiry process.
 	AccountName string `json:"accountName"`
@@ -48,10 +48,10 @@ type rtolTransfer struct {
 	DisburseID int64 `json:"disburseId"`
 }
 
-// newRtolTransfer create new rtolTransfer request from request and response
+// NewRtolTransfer create new RtolTransfer request from request and response
 // of RtolInquiry.
-func newRtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryResponse) (req *rtolTransfer) {
-	req = &rtolTransfer{
+func NewRtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryResponse) (req *RtolTransfer) {
+	req = &RtolTransfer{
 		Amount:  inquiryReq.Amount,
 		Purpose: inquiryReq.Purpose,
 
@@ -64,7 +64,9 @@ func newRtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryResponse) (
 	return req
 }
 
-func (req *rtolTransfer) sign(opts ClientOptions) {
+// Sign the request, fill the UserID, Email, Timestamp, and generate the
+// Signature.
+func (req *RtolTransfer) Sign(opts ClientOptions) {
 	var (
 		now = time.Now()
 

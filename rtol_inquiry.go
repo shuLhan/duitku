@@ -41,7 +41,9 @@ type RtolInquiry struct {
 	Amount int64 `json:"amountTransfer"`
 }
 
-func (inq *RtolInquiry) sign(opts ClientOptions) {
+// Sign the request, fill the UserID, Email, Timestamp, and generate the
+// Signature.
+func (inq *RtolInquiry) Sign(opts ClientOptions) {
 	inq.UserID = opts.UserID
 	inq.Email = opts.Email
 	inq.Timestamp = time.Now().UnixMilli()

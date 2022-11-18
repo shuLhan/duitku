@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-// clearingTransfer contains request parameter for Clearing Transfer.
+// ClearingTransfer contains request parameter for Clearing Transfer.
 //
 // Formula to generate signature:
 //
@@ -20,19 +20,19 @@ import (
 //		disburseId + apiKey)
 //
 // Ref: https://docs.duitku.com/disbursement/en/#clearing-transfer-request
-type clearingTransfer struct {
+type ClearingTransfer struct {
 	Type string `json:"type"`
 
-	rtolTransfer
+	RtolTransfer
 }
 
-// newClearingTransfer create clearingTransfer from Clearing Inquiry
+// NewClearingTransfer create ClearingTransfer from Clearing Inquiry
 // request and response.
 //
 // The following fields are set from response: AccountName, CustRefNumber,
 // DisburseID, and Type.
-func newClearingTransfer(inqReq *ClearingInquiry, inqRes *ClearingInquiryResponse) (trf *clearingTransfer) {
-	trf = &clearingTransfer{}
+func NewClearingTransfer(inqReq *ClearingInquiry, inqRes *ClearingInquiryResponse) (trf *ClearingTransfer) {
+	trf = &ClearingTransfer{}
 
 	trf.Amount = inqReq.Amount
 	trf.BankAccount = inqReq.BankAccount
@@ -47,7 +47,9 @@ func newClearingTransfer(inqReq *ClearingInquiry, inqRes *ClearingInquiryRespons
 	return trf
 }
 
-func (trf *clearingTransfer) sign(opts ClientOptions) {
+// Sign the request, fill the UserID, Email, Timestamp, and generate the
+// Signature.
+func (trf *ClearingTransfer) Sign(opts ClientOptions) {
 	var (
 		now = time.Now()
 

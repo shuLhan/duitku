@@ -29,7 +29,9 @@ type ClearingInquiry struct {
 	RtolInquiry
 }
 
-func (inq *ClearingInquiry) sign(opts ClientOptions) {
+// Sign the request, fill the UserID, Email, Timestamp, and generate the
+// Signature.
+func (inq *ClearingInquiry) Sign(opts ClientOptions) {
 	inq.UserID = opts.UserID
 	inq.Email = opts.Email
 	inq.Timestamp = time.Now().UnixMilli()
