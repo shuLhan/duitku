@@ -84,9 +84,11 @@ func TestClient_ClearingTransfer_sandbox(t *testing.T) {
 		inquiryReq ClearingInquiry
 		inquiryRes ClearingInquiryResponse
 
-		err         error
-		tdata       *test.Data
+		transferReq *ClearingTransfer
 		transferRes *ClearingTransferResponse
+
+		tdata *test.Data
+		err   error
 	)
 
 	tdata, err = test.LoadData(`testdata/disbursement/clearing_transfer_test.txt`)
@@ -103,7 +105,9 @@ func TestClient_ClearingTransfer_sandbox(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	transferRes, err = testClient.ClearingTransfer(&inquiryReq, &inquiryRes)
+	transferReq = NewClearingTransfer(&inquiryReq, &inquiryRes)
+
+	transferRes, err = testClient.ClearingTransfer(transferReq)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -157,6 +161,7 @@ func TestClient_RtolTransfer_sandbox(t *testing.T) {
 		tdata       *test.Data
 		inquiryReq  *RtolInquiry
 		inquiryRes  *RtolInquiryResponse
+		transferReq *RtolTransfer
 		transferRes *RtolTransferResponse
 	)
 
@@ -175,7 +180,9 @@ func TestClient_RtolTransfer_sandbox(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	transferRes, err = testClient.RtolTransfer(inquiryReq, inquiryRes)
+	transferReq = NewRtolTransfer(inquiryReq, inquiryRes)
+
+	transferRes, err = testClient.RtolTransfer(transferReq)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -128,27 +128,20 @@ func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryRes
 	return res, nil
 }
 
-// ClearingTransfer do the clearing transfer using request and response from
-// Clearing Inquiry.
-//
-// The following fields are set from response: AccountName, CustRefNumber,
-// DisburseID, and Type.
+// ClearingTransfer do the clearing transfer to the bank account.
 //
 // Return without an error does not mean the transfer success, you need to
 // check the response Code.
-func (cl *Client) ClearingTransfer(inquiryReq *ClearingInquiry, inquiryRes *ClearingInquiryResponse) (
-	transferRes *ClearingTransferResponse, err error,
-) {
+func (cl *Client) ClearingTransfer(req *ClearingTransfer) (res *ClearingTransferResponse, err error) {
 	var (
-		logp        = `ClearingTransfer`
-		path        = PathTransferClearing
-		transferReq = NewClearingTransfer(inquiryReq, inquiryRes)
+		logp = `ClearingTransfer`
+		path = PathTransferClearing
 
 		httpRes *http.Response
 		resBody []byte
 	)
 
-	transferReq.Sign(cl.opts)
+	req.Sign(cl.opts)
 
 	// Since the path is different in test environment, we check the host
 	// here to set it.
@@ -156,7 +149,7 @@ func (cl *Client) ClearingTransfer(inquiryReq *ClearingInquiry, inquiryRes *Clea
 		path = PathTransferClearingSandbox
 	}
 
-	httpRes, resBody, err = cl.PostJSON(path, nil, transferReq)
+	httpRes, resBody, err = cl.PostJSON(path, nil, req)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -164,12 +157,12 @@ func (cl *Client) ClearingTransfer(inquiryReq *ClearingInquiry, inquiryRes *Clea
 		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
 	}
 
-	err = json.Unmarshal(resBody, &transferRes)
+	err = json.Unmarshal(resBody, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
 
-	return transferRes, nil
+	return res, nil
 }
 
 // tListBank fetch list of banks for disbursement.
@@ -270,8 +263,7 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 	return res, nil
 }
 
-// RtolTransfer do the actual transfer to customer's bank account using the
-// request and response from call to RtolInquiry.
+// RtolTransfer do the actual transfer to customer's bank account.
 //
 // Transfer will be limited from 25 to 50 Million per transaction depending on
 // the beneficiary bank account.
@@ -280,12 +272,11 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 // check the response Code.
 //
 // Ref: https://docs.duitku.com/disbursement/en/#online-transfer-transfer-request
-func (cl *Client) RtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryResponse) (res *RtolTransferResponse, err error) {
+func (cl *Client) RtolTransfer(req *RtolTransfer) (res *RtolTransferResponse, err error) {
 	var (
 		logp = `RtolTransfer`
 		path = PathTransfer
 
-		req     *RtolTransfer
 		resHttp *http.Response
 		resBody []byte
 	)
@@ -296,7 +287,6 @@ func (cl *Client) RtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryR
 		path = PathTransferSandbox
 	}
 
-	req = NewRtolTransfer(inquiryReq, inquiryRes)
 	req.Sign(cl.opts)
 
 	resHttp, resBody, err = cl.PostJSON(path, nil, req)
