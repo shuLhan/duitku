@@ -221,6 +221,11 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 	return banks, nil
 }
 
+// Options return the current client configuration.
+func (cl *Client) Options() (opts ClientOptions) {
+	return cl.opts
+}
+
 // RtolInquiry get the information of the name of the account owner of the
 // transfer destination.
 //
