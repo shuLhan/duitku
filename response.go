@@ -3,8 +3,9 @@
 
 package duitku
 
+// List of known response code.
 const (
-	resCodeSuccess             = `00`   // Approved or completed successfully.
+	ResCodeSuccess             = `00`   // Approved or completed successfully.
 	resCodeError               = `EE`   // General Error.
 	resCodeErrTimeout          = `TO`   // Response time out from ATM Bersama Network (Do not retry).
 	resCodeErrLink             = `LD`   // Link problem between Duitku and ATM Bersama Network.
@@ -35,4 +36,9 @@ const (
 type Response struct {
 	Code string `json:"responseCode"`
 	Desc string `json:"responseDesc"`
+}
+
+// IsSuccess return true if the response code equal to 00.
+func (res *Response) IsSuccess() bool {
+	return res.Code == ResCodeSuccess
 }

@@ -83,7 +83,7 @@ func (cl *Client) CheckBalance() (bal *Balance, err error) {
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %s`, logp, err)
 	}
-	if bal.Code != resCodeSuccess {
+	if bal.Code != ResCodeSuccess {
 		return nil, fmt.Errorf(`%s: %s: %s`, logp, bal.Code, bal.Desc)
 	}
 
@@ -121,7 +121,7 @@ func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryRes
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if res.Code != resCodeSuccess {
+	if res.Code != ResCodeSuccess {
 		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
 	}
 
@@ -133,6 +133,9 @@ func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryRes
 //
 // The following fields are set from response: AccountName, CustRefNumber,
 // DisburseID, and Type.
+//
+// Return without an error does not mean the transfer success, you need to
+// check the response Code.
 func (cl *Client) ClearingTransfer(inquiryReq *ClearingInquiry, inquiryRes *ClearingInquiryResponse) (
 	transferRes *ClearingTransferResponse, err error,
 ) {
@@ -164,9 +167,6 @@ func (cl *Client) ClearingTransfer(inquiryReq *ClearingInquiry, inquiryRes *Clea
 	err = json.Unmarshal(resBody, &transferRes)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
-	}
-	if transferRes.Code != resCodeSuccess {
-		return nil, fmt.Errorf(`%s: %s: %s`, logp, transferRes.Code, transferRes.Desc)
 	}
 
 	return transferRes, nil
@@ -201,7 +201,7 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %s`, logp, err)
 	}
-	if res.Code != resCodeSuccess {
+	if res.Code != ResCodeSuccess {
 		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
 	}
 
@@ -263,7 +263,7 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if res.Code != resCodeSuccess {
+	if res.Code != ResCodeSuccess {
 		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
 	}
 
@@ -275,6 +275,9 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 //
 // Transfer will be limited from 25 to 50 Million per transaction depending on
 // the beneficiary bank account.
+//
+// Return without an error does not mean the transfer success, you need to
+// check the response Code.
 //
 // Ref: https://docs.duitku.com/disbursement/en/#online-transfer-transfer-request
 func (cl *Client) RtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryResponse) (res *RtolTransferResponse, err error) {
@@ -307,9 +310,6 @@ func (cl *Client) RtolTransfer(inquiryReq *RtolInquiry, inquiryRes *RtolInquiryR
 	err = json.Unmarshal(resBody, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
-	}
-	if res.Code != resCodeSuccess {
-		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
 	}
 
 	return res, nil
