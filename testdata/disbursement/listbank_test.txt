@@ -7,8 +7,6 @@ Some JSON is sorted using jq, for example
 
 	$ jq 'sort_by(.bankCode)' listbank.json
 
-and formatted using prettier (default options).
-
 <<< response.json
 [
   {

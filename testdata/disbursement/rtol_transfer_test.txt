@@ -1,0 +1,41 @@
+// SPDX-FileCopyrightText: 2022 M. Shulhan <ms@kilabit.info>
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+Test disbursement online transfer.
+
+Ref: https://docs.duitku.com/disbursement/en/#transfer-online
+
+>>> inquiry_request.json
+{
+  "amountTransfer": 10000,
+  "bankAccount": "8760673566",
+  "bankCode": "002",
+  "purpose": "Test Transfer Online Inquiry with duitku.",
+  "senderId": 123456789,
+  "senderName": "John Doe"
+}
+
+<<< inquiry_response.json
+{
+  "email": "test@chakratechnology.com",
+  "bankCode": "002",
+  "bankAccount": "8760673566",
+  "amountTransfer": 10000,
+  "accountName": "Test Account",
+  "custRefNumber": "<replaced>",
+  "disburseId": 0,
+  "responseCode": "00",
+  "responseDesc": "Success"
+}
+
+<<< transfer_response.json
+{
+  "email": "test@chakratechnology.com",
+  "bankCode": "002",
+  "bankAccount": "8760673566",
+  "amountTransfer": 10000,
+  "accountName": "Test Account",
+  "custRefNumber": "<replaced>",
+  "responseCode": "00",
+  "responseDesc": "Success"
+}
