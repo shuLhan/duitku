@@ -6,8 +6,8 @@
   "userId": 3551,
   "email": "test@chakratechnology.com",
   "amountTransfer": 10000,
-  "bankCode": "014",
-  "bankAccount": "8760673566",
+  "bankCode": "002",
+  "bankAccount": "8760673466",
   "purpose": "Test Clearing Inquiry with duitku.",
   "timestamp": 1506486841000,
   "custRefNumber": "12345789",
@@ -19,12 +19,12 @@
 <<< response.json
 {
   "email": "test@chakratechnology.com",
-  "bankCode": "014",
-  "bankAccount": "8760673566",
+  "bankCode": "002",
+  "bankAccount": "8760673466",
   "amountTransfer": 10000,
   "accountName": "Test Account",
-  "custRefNumber": "12345789",
-  "disburseId": 121012,
+  "custRefNumber": "<replaced>",
+  "disburseId": 0,
   "type": "LLG",
   "responseCode": "00",
   "responseDesc": "Approved or completed successfully"

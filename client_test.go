@@ -42,13 +42,13 @@ func TestClient_CheckBalance(t *testing.T) {
 }
 
 func TestClient_ClearingInquiry_sandbox(t *testing.T) {
-	t.Skip(`This test require external call to server`)
-
 	var (
-		inquiryReq ClearingInquiry
-		err        error
 		tdata      *test.Data
-		inquiryRes *ClearingInquiryResponse
+		reqInquiry *ClearingInquiry
+		gotInquiry *ClearingInquiryResponse
+		expInquiry *ClearingInquiryResponse
+		err        error
+		rawb       []byte
 	)
 
 	tdata, err = test.LoadData(`testdata/disbursement/clearing_inquiry_test.txt`)
@@ -56,33 +56,34 @@ func TestClient_ClearingInquiry_sandbox(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	err = json.Unmarshal(tdata.Input[`request.json`], &inquiryReq)
+	err = json.Unmarshal(tdata.Input[`request.json`], &reqInquiry)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	inquiryRes, err = testClient.ClearingInquiry(&inquiryReq)
+	gotInquiry, err = testClient.ClearingInquiry(reqInquiry)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	// We cannot compare the response, because for each call to server
-	// it will return different DisburseID.
-
-	t.Logf(`inquiryRes: %+v`, inquiryRes)
-
-	test.Assert(t, `AccountName`, `Test Account`, inquiryRes.AccountName)
+	rawb = tdata.Output[`response.json`]
+	err = json.Unmarshal(rawb, &expInquiry)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expInquiry.CustRefNumber = gotInquiry.CustRefNumber
+	expInquiry.DisburseID = gotInquiry.DisburseID
+	test.Assert(t, `ClearingInquiry`, expInquiry, gotInquiry)
 }
 
 func TestClient_ClearingTransfer_sandbox(t *testing.T) {
-	t.Skip(`This test require external call to server`)
-
 	var (
-		inquiryReq ClearingInquiry
-		inquiryRes ClearingInquiryResponse
+		reqInquiry *ClearingInquiry
+		resInquiry *ClearingInquiryResponse
 
-		transferReq *ClearingTransfer
-		transferRes *ClearingTransferResponse
+		reqTransfer *ClearingTransfer
+		gotTransfer *ClearingTransferResponse
+		expTransfer *ClearingTransferResponse
 
 		tdata *test.Data
 		err   error
@@ -93,28 +94,30 @@ func TestClient_ClearingTransfer_sandbox(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	err = json.Unmarshal(tdata.Input[`inquiry_request.json`], &inquiryReq)
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = json.Unmarshal(tdata.Input[`inquiry_response.json`], &inquiryRes)
+	err = json.Unmarshal(tdata.Input[`inquiry_request.json`], &reqInquiry)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	transferReq = NewClearingTransfer(&inquiryReq, &inquiryRes)
-
-	transferRes, err = testClient.ClearingTransfer(transferReq)
+	resInquiry, err = testClient.ClearingInquiry(reqInquiry)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	// We cannot compare the response, because for each call to server
-	// it will return different DisburseID.
+	reqTransfer = NewClearingTransfer(reqInquiry, resInquiry)
 
-	t.Logf(`transferRes: %+v`, transferRes)
+	gotTransfer, err = testClient.ClearingTransfer(reqTransfer)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-	test.Assert(t, `AccountName`, `Test Account`, transferRes.AccountName)
+	err = json.Unmarshal(tdata.Output[`transfer_response.json`], &expTransfer)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expTransfer.CustRefNumber = gotTransfer.CustRefNumber
+	expTransfer.DisburseID = gotTransfer.DisburseID
+	test.Assert(t, `ClearingTransfer`, expTransfer, gotTransfer)
 }
 
 func TestClient_InquiryStatus_sandbox(t *testing.T) {
