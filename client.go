@@ -22,6 +22,10 @@ const (
 	PathInquiry        = `/webapi/api/disbursement/inquiry`
 	PathInquirySandbox = `/webapi/api/disbursement/inquirysandbox` // Used for testing.
 
+	// Endpoints to check transfer status.
+	PathInquiryStatus        = `/webapi/api/disbursement/inquirystatus`
+	PathInquiryStatusSandbox = `/webapi/api/disbursement/inquirystatus` // Used for testing.
+
 	PathTransfer        = `/webapi/api/disbursement/transfer`
 	PathTransferSandbox = `/webapi/api/disbursement/transfersandbox` // Used for testing.
 
@@ -155,6 +159,43 @@ func (cl *Client) ClearingTransfer(req *ClearingTransfer) (res *ClearingTransfer
 	}
 	if httpRes.StatusCode >= 500 {
 		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
+	}
+
+	err = json.Unmarshal(resBody, &res)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+
+	return res, nil
+}
+
+// InquiryStatus get the transfer status of ClearingTransfer or RtolTransfer.
+func (cl *Client) InquiryStatus(disburseID int64) (res *InquiryStatusResponse, err error) {
+	var (
+		logp = `InquiryStatus`
+		path = PathInquiryStatus
+		req  = InquiryStatus{
+			DisburseID: disburseID,
+		}
+
+		resHttp *http.Response
+		resBody []byte
+	)
+
+	// Since the path is different in test environment, we check the host
+	// here to set it.
+	if cl.opts.host != hostLive {
+		path = PathInquiryStatusSandbox
+	}
+
+	req.Sign(cl.opts)
+
+	resHttp, resBody, err = cl.PostJSON(path, nil, req)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if resHttp.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, resHttp.Status)
 	}
 
 	err = json.Unmarshal(resBody, &res)

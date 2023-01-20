@@ -120,6 +120,87 @@ func TestClient_ClearingTransfer_sandbox(t *testing.T) {
 	test.Assert(t, `AccountName`, `Test Account`, transferRes.AccountName)
 }
 
+func TestClient_InquiryStatus_sandbox(t *testing.T) {
+	t.Skip(`This test require external call to server`)
+
+	var (
+		tdata *test.Data
+
+		reqInquiry *RtolInquiry
+		resInquiry *RtolInquiryResponse
+		expInquiry *RtolInquiryResponse
+
+		reqTransfer *RtolTransfer
+		resTransfer *RtolTransferResponse
+		expTransfer *RtolTransferResponse
+
+		resInqueryStatus *InquiryStatusResponse
+		expInquiryStatus *InquiryStatusResponse
+
+		err error
+		exp []byte
+	)
+
+	tdata, err = test.LoadData(`testdata/disbursement/inquirystatus_test.txt`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = json.Unmarshal(tdata.Input[`inquiry_request.json`], &reqInquiry)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Do inquiry bank account ...
+
+	resInquiry, err = testClient.RtolInquiry(reqInquiry)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	exp = tdata.Output[`inquiry_response.json`]
+	err = json.Unmarshal(exp, &expInquiry)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expInquiry.CustRefNumber = resInquiry.CustRefNumber
+	expInquiry.DisburseID = resInquiry.DisburseID
+	test.Assert(t, `RtolInquiry`, expInquiry, resInquiry)
+
+	// Do the transfer ...
+
+	reqTransfer = NewRtolTransfer(reqInquiry, resInquiry)
+
+	resTransfer, err = testClient.RtolTransfer(reqTransfer)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	exp = tdata.Output[`transfer_response.json`]
+	err = json.Unmarshal(exp, &expTransfer)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expTransfer.CustRefNumber = resTransfer.CustRefNumber
+	expTransfer.DisburseID = resTransfer.DisburseID
+	test.Assert(t, `RtolTransfer`, expTransfer, resTransfer)
+
+	// Inquiry transfer status ...
+
+	resInqueryStatus, err = testClient.InquiryStatus(resTransfer.DisburseID)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	exp = tdata.Output[`inquirystatus_response.json`]
+	err = json.Unmarshal(exp, &expInquiryStatus)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expInquiryStatus.CustRefNumber = resInqueryStatus.CustRefNumber
+	test.Assert(t, `InquiryStatus`, expInquiryStatus, resInqueryStatus)
+}
+
 func TestClient_RtolInquiry_sandbox(t *testing.T) {
 	t.Skip(`This test require external call to server`)
 

@@ -1,0 +1,52 @@
+Test InquiryStatus.
+
+All of the custRefNumber and disburseId will be replaced, since its dynamic on
+each request.
+
+>>> inquiry_request.json
+{
+  "amountTransfer": 10000,
+  "bankAccount": "8760673566",
+  "bankCode": "002",
+  "purpose": "Test Transfer Online Inquiry with duitku.",
+  "senderId": 123456789,
+  "senderName": "John Doe"
+}
+
+<<< inquiry_response.json
+{
+  "responseCode": "00",
+  "responseDesc": "Success",
+  "email": "test@chakratechnology.com",
+  "bankCode": "002",
+  "bankAccount": "8760673566",
+  "amountTransfer": "10000",
+  "accountName": "Test Account",
+  "custRefNumber": "<replaced>",
+  "disburseId": 0
+}
+
+<<< transfer_response.json
+{
+  "purpose": "",
+  "responseCode": "00",
+  "responseDesc": "Success",
+  "email": "test@chakratechnology.com",
+  "bankCode": "002",
+  "bankAccount": "8760673566",
+  "amountTransfer": "10000",
+  "accountName": "Test Account",
+  "custRefNumber": "<replaced>",
+  "userId": 0
+}
+
+<<< inquirystatus_response.json
+{
+  "responseCode": "00",
+  "responseDesc": "Success",
+  "bankCode": "002",
+  "bankAccount": "8760673566",
+  "amountTransfer": "10000",
+  "accountName": "Test Account",
+  "custRefNumber": "<replaced>"
+}
