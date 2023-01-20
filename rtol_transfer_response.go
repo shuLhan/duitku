@@ -4,6 +4,8 @@
 package duitku
 
 // RtolTransferResponse contains response from online transfer.
+//
+// NOTE: the actual response from server does not return DisburseID.
 type RtolTransferResponse struct {
 	Purpose string `json:"purpose"`
 

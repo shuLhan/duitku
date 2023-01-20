@@ -343,5 +343,9 @@ func (cl *Client) RtolTransfer(req *RtolTransfer) (res *RtolTransferResponse, er
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
 
+	// The actual transfer does not return the disburseID back, so we set
+	// it here.
+	res.DisburseID = req.DisburseID
+
 	return res, nil
 }
