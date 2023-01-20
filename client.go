@@ -206,7 +206,8 @@ func (cl *Client) InquiryStatus(disburseID int64) (res *InquiryStatusResponse, e
 	return res, nil
 }
 
-// tListBank fetch list of banks for disbursement.
+// ListBank fetch list of banks for disbursement.
+// The returned list bank is sorted by code and name in ascending order.
 func (cl *Client) ListBank() (banks []Bank, err error) {
 	var (
 		logp = `ListBank`
