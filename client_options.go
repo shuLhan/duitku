@@ -14,6 +14,23 @@ type ClientOptions struct {
 	Email     string
 	ApiKey    string
 
+	// The merchant code is the project code obtained from the Duitku
+	// merchant page.
+	// This code is useful as an identifier of your project in each
+	// request using the /merchant/* APIs.
+	// You can get this code on every project you register on the
+	// [merchant portal].
+	//
+	// [merchant portal]: https://passport.duitku.com/merchant/Project
+	MerchantCode string
+
+	// MerchantApiKey The API key for signing merchant related request.
+	MerchantApiKey string
+
+	// Merchant code and API key for payment through Indomaret.
+	IndomaretMerchantCode string
+	IndomaretApiKey       string
+
 	// The hostname extracted from ServerUrl.
 	host string
 
