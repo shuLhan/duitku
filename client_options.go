@@ -11,8 +11,9 @@ import (
 // ClientOptions configuration for HTTP client.
 type ClientOptions struct {
 	ServerUrl string
-	Email     string
-	ApiKey    string
+
+	// The hostname extracted from ServerUrl.
+	host string
 
 	// The merchant code is the project code obtained from the Duitku
 	// merchant page.
@@ -31,10 +32,14 @@ type ClientOptions struct {
 	IndomaretMerchantCode string
 	IndomaretApiKey       string
 
-	// The hostname extracted from ServerUrl.
-	host string
+	// DisburseApiKey API key for signing disbursement request.
+	DisburseApiKey string
 
-	UserID int64
+	// DisburseEmail The email registered for disbursement in Duitku.
+	DisburseEmail string
+
+	// DisburseUserID user ID for disbursement request.
+	DisburseUserID int64
 }
 
 // validate each field values.
@@ -49,14 +54,14 @@ func (opts *ClientOptions) validate() (err error) {
 	}
 	opts.host = urlServer.Host
 
-	if opts.UserID <= 0 {
-		return fmt.Errorf(`invalid or empty UserID: %d`, opts.UserID)
+	if opts.DisburseUserID <= 0 {
+		return fmt.Errorf(`invalid or empty DisburseUserID: %d`, opts.DisburseUserID)
 	}
-	if len(opts.Email) == 0 {
-		return fmt.Errorf(`invalid or empty Email: %s`, opts.Email)
+	if len(opts.DisburseEmail) == 0 {
+		return fmt.Errorf(`invalid or empty DisburseEmail: %s`, opts.DisburseEmail)
 	}
-	if len(opts.ApiKey) == 0 {
-		return fmt.Errorf(`invalid or empty ApiKey: %s`, opts.ApiKey)
+	if len(opts.DisburseApiKey) == 0 {
+		return fmt.Errorf(`invalid or empty DisburseApiKey: %s`, opts.DisburseApiKey)
 	}
 
 	return nil

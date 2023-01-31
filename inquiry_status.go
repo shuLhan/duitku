@@ -20,11 +20,11 @@ type InquiryStatus struct {
 // Sign the request, fill the UserID, Email, Timestamp, and generate the
 // Signature.
 func (inq *InquiryStatus) Sign(opts ClientOptions) {
-	inq.UserID = opts.UserID
-	inq.Email = opts.Email
+	inq.UserID = opts.DisburseUserID
+	inq.Email = opts.DisburseEmail
 	inq.Timestamp = time.Now().UnixMilli()
 
-	var plain string = fmt.Sprintf(`%s%d%d%s`, inq.Email, inq.Timestamp, inq.DisburseID, opts.ApiKey)
+	var plain string = fmt.Sprintf(`%s%d%d%s`, inq.Email, inq.Timestamp, inq.DisburseID, opts.DisburseApiKey)
 	var plainHash [sha256.Size]byte = sha256.Sum256([]byte(plain))
 
 	inq.Signature = hex.EncodeToString(plainHash[:])

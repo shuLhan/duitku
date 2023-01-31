@@ -73,7 +73,7 @@ func (cbres *ClearingCallbackResponse) Sign(opts ClientOptions) {
 	bb.WriteString(cbres.AccountName)
 	bb.WriteString(cbres.CustRefNumber)
 	fmt.Fprintf(&bb, `%d%d`, cbres.Amount, cbres.DisburseID)
-	bb.WriteString(opts.ApiKey)
+	bb.WriteString(opts.DisburseApiKey)
 
 	plainHash = sha256.Sum256(bb.Bytes())
 

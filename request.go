@@ -25,13 +25,13 @@ type Request struct {
 	Timestamp int64 `json:"timestamp"`
 }
 
-func CreateRequest(opts ClientOptions) (req Request) {
-	req.UserID = opts.UserID
-	req.Email = opts.Email
+func CreateDisburseRequest(opts ClientOptions) (req Request) {
+	req.UserID = opts.DisburseUserID
+	req.Email = opts.DisburseEmail
 	req.Timestamp = time.Now().UnixMilli()
 
 	var (
-		plain   = fmt.Sprintf(`%s%d%s`, req.Email, req.Timestamp, opts.ApiKey)
+		plain   = fmt.Sprintf(`%s%d%s`, req.Email, req.Timestamp, opts.DisburseApiKey)
 		hashRaw = sha256.Sum256([]byte(plain))
 	)
 

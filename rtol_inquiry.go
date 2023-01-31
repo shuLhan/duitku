@@ -44,14 +44,14 @@ type RtolInquiry struct {
 // Sign the request, fill the UserID, Email, Timestamp, and generate the
 // Signature.
 func (inq *RtolInquiry) Sign(opts ClientOptions) {
-	inq.UserID = opts.UserID
-	inq.Email = opts.Email
+	inq.UserID = opts.DisburseUserID
+	inq.Email = opts.DisburseEmail
 	inq.Timestamp = time.Now().UnixMilli()
 
 	var (
 		plain = fmt.Sprintf(`%s%d%s%s%d%s%s`, inq.Email,
 			inq.Timestamp, inq.BankCode, inq.BankAccount,
-			inq.Amount, inq.Purpose, opts.ApiKey)
+			inq.Amount, inq.Purpose, opts.DisburseApiKey)
 		plainHash [sha256.Size]byte = sha256.Sum256([]byte(plain))
 	)
 	inq.Signature = hex.EncodeToString(plainHash[:])

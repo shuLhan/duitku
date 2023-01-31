@@ -74,14 +74,14 @@ func (req *RtolTransfer) Sign(opts ClientOptions) {
 		plainHash [sha256.Size]byte
 	)
 
-	req.UserID = opts.UserID
-	req.Email = opts.Email
+	req.UserID = opts.DisburseUserID
+	req.Email = opts.DisburseEmail
 	req.Timestamp = now.UnixMilli()
 
 	fmt.Fprintf(&bb, `%s%d%s%s%s%s%d%s%d%s`, req.Email, req.Timestamp,
 		req.BankCode, req.BankAccount, req.AccountName,
 		req.CustRefNumber, req.Amount, req.Purpose,
-		req.DisburseID, opts.ApiKey)
+		req.DisburseID, opts.DisburseApiKey)
 
 	plainHash = sha256.Sum256(bb.Bytes())
 

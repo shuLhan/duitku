@@ -57,8 +57,8 @@ func (trf *ClearingTransfer) Sign(opts ClientOptions) {
 		plainHash [sha256.Size]byte
 	)
 
-	trf.UserID = opts.UserID
-	trf.Email = opts.Email
+	trf.UserID = opts.DisburseUserID
+	trf.Email = opts.DisburseEmail
 	trf.Timestamp = now.UnixMilli()
 
 	bb.WriteString(trf.Email)
@@ -71,7 +71,7 @@ func (trf *ClearingTransfer) Sign(opts ClientOptions) {
 	fmt.Fprintf(&bb, `%d`, trf.Amount)
 	bb.WriteString(trf.Purpose)
 	fmt.Fprintf(&bb, `%d`, trf.DisburseID)
-	bb.WriteString(opts.ApiKey)
+	bb.WriteString(opts.DisburseApiKey)
 
 	plainHash = sha256.Sum256(bb.Bytes())
 
