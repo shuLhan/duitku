@@ -1,0 +1,21 @@
+>>> request.json
+{
+  "merchantOrderId": "1",
+  "paymentMethod": "BT",
+  "productDetails": "Payment example using VA Bank Permata",
+  "email": "test@example.com",
+  "customerVaName": "John Doe",
+  "paymentAmount": 10000
+}
+
+<<< response.json
+{
+  "responseCode": "",
+  "responseDesc": "",
+  "merchantCode": "[redacted]",
+  "reference": "$ref",
+  "paymentUrl": "$payment_url",
+  "vaNumber": "$va",
+  "qrString": "",
+  "amount": "10000"
+}

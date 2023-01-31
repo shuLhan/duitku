@@ -37,6 +37,7 @@ const (
 	PathTransferClearingSandbox = `/webapi/api/disbursement/transferclearingsandbox` // Used for testing.
 
 	PathMerchantPaymentMethod = `/webapi/api/merchant/paymentmethod/getpaymentmethod`
+	PathMerchantInquiry       = `/webapi/api/merchant/v2/inquiry`
 )
 
 type Client struct {
@@ -54,7 +55,7 @@ func NewClient(opts ClientOptions) (cl *Client, err error) {
 		}
 	)
 
-	err = opts.validate()
+	err = opts.initAndValidate()
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -258,6 +259,39 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 	return banks, nil
 }
 
+// MerchantInquiry request payment to the Duitku system (via virtual account
+// numbers, QRIS, e-wallet, and so on).
+//
+// Ref: https://docs.duitku.com/api/en/#request-transaction
+func (cl *Client) MerchantInquiry(req MerchantInquiry) (resp *MerchantInquiryResponse, err error) {
+	var (
+		logp  = `MerchantInquiry`
+		inreq = merchantInquiry{
+			MerchantInquiry: req,
+		}
+
+		httpRes *http.Response
+		resBody []byte
+	)
+
+	inreq.sign(cl.opts)
+
+	httpRes, resBody, err = cl.PostJSON(PathMerchantInquiry, nil, inreq)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if httpRes.StatusCode >= 400 {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, httpRes.Status, resBody)
+	}
+
+	err = json.Unmarshal(resBody, &resp)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+
+	return resp, nil
+}
+
 // MerchantPaymentMethod get active payment methods from the merchant (your)
 // project.
 //
@@ -267,18 +301,18 @@ func (cl *Client) MerchantPaymentMethod(req *PaymentMethod) (resp *PaymentMethod
 		logp = `MerchantPaymentMethod`
 		path = PathMerchantPaymentMethod
 
-		resHttp *http.Response
+		httpRes *http.Response
 		resBody []byte
 	)
 
 	req.Sign(cl.opts)
 
-	resHttp, resBody, err = cl.PostJSON(path, nil, req)
+	httpRes, resBody, err = cl.PostJSON(path, nil, req)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if resHttp.StatusCode >= 500 {
-		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	if httpRes.StatusCode >= 400 {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, httpRes.Status, resBody)
 	}
 
 	err = json.Unmarshal(resBody, &resp)

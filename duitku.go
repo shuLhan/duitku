@@ -3,6 +3,9 @@
 
 // Package duitku provide library and HTTP client for [duitku.com].
 //
+// In the types, field that tagged with [REQ] is required and [OPT] is
+// optional.
+//
 // [duitku.com]: https://docs.duitku.com/disbursement/id/#langkah-awal
 package duitku
 

@@ -4,6 +4,7 @@
 package duitku
 
 import (
+	"bytes"
 	"encoding/json"
 	"testing"
 
@@ -197,6 +198,62 @@ func TestClient_InquiryStatus_sandbox(t *testing.T) {
 	}
 	expInquiryStatus.CustRefNumber = resInqueryStatus.CustRefNumber
 	test.Assert(t, `InquiryStatus`, expInquiryStatus, resInqueryStatus)
+}
+
+func TestClient_MerchantInquiry(t *testing.T) {
+	var (
+		tdata *test.Data
+		err   error
+	)
+
+	err = initClientMerchant()
+	if err != nil {
+		t.Skip(err)
+	}
+
+	tdata, err = test.LoadData(`testdata/merchant/inquiry_test.txt`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var (
+		req  *MerchantInquiry
+		resp *MerchantInquiryResponse
+		tag  string
+	)
+
+	tag = `request.json`
+	err = json.Unmarshal(tdata.Input[tag], &req)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	resp, err = testClientMerchant.MerchantInquiry(*req)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var (
+		exp []byte
+		got []byte
+	)
+
+	resp.MerchantCode = `[redacted]`
+
+	got, err = json.MarshalIndent(resp, ``, `  `)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tag = `response.json`
+	exp = tdata.Output[tag]
+	exp = bytes.ReplaceAll(exp, []byte(`$ref`), []byte(resp.Reference))
+	exp = bytes.ReplaceAll(exp, []byte(`$payment_url`), []byte(resp.PaymentUrl))
+	exp = bytes.ReplaceAll(exp, []byte(`$va`), []byte(resp.VANumber))
+
+	t.Logf(`MerchantInquiry: response: %s`, got)
+
+	test.Assert(t, `MerchantInquiry`, string(exp), string(got))
 }
 
 func TestClient_MerchantPaymentMethod(t *testing.T) {
