@@ -35,6 +35,8 @@ const (
 
 	PathTransferClearing        = `/webapi/api/disbursement/transferclearing`
 	PathTransferClearingSandbox = `/webapi/api/disbursement/transferclearingsandbox` // Used for testing.
+
+	PathMerchantPaymentMethod = `/webapi/api/merchant/paymentmethod/getpaymentmethod`
 )
 
 type Client struct {
@@ -254,6 +256,37 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 	})
 
 	return banks, nil
+}
+
+// MerchantPaymentMethod get active payment methods from the merchant (your)
+// project.
+//
+// Ref: https://docs.duitku.com/api/en/#get-payment-method
+func (cl *Client) MerchantPaymentMethod(req *PaymentMethod) (resp *PaymentMethodResponse, err error) {
+	var (
+		logp = `MerchantPaymentMethod`
+		path = PathMerchantPaymentMethod
+
+		resHttp *http.Response
+		resBody []byte
+	)
+
+	req.Sign(cl.opts)
+
+	resHttp, resBody, err = cl.PostJSON(path, nil, req)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if resHttp.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+
+	err = json.Unmarshal(resBody, &resp)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+
+	return resp, nil
 }
 
 // Options return the current client configuration.

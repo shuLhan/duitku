@@ -1,0 +1,106 @@
+>>> payment_method_request.json
+{}
+
+<<< payment_method_response.json
+{
+  "responseCode": "00",
+  "responseDesc": "",
+  "paymentFee": [
+    {
+      "paymentMethod": "VA",
+      "paymentName": "MAYBANK VA",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/VA.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "BT",
+      "paymentName": "PERMATA VA",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/PERMATA.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "B1",
+      "paymentName": "CIMB NIAGA VA",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/B1.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "A1",
+      "paymentName": "ATM BERSAMA VA",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/A1.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "OV",
+      "paymentName": "OVO",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/OV.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "F5",
+      "paymentName": "MANDIRI VA DEPOSIT",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "M1",
+      "paymentName": "MANDIRI VA",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/MV.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "M2",
+      "paymentName": "MANDIRI VA H2H",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/MV.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "AG",
+      "paymentName": "ARTHA GRAHA VA",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/AG.JPG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "S1",
+      "paymentName": "SAMPOERNA VA",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/S1.JPG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "SP",
+      "paymentName": "SHOPEEPAY QRIS",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/SHOPEEPAY.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "SA",
+      "paymentName": "SHOPEEPAY APP",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/SHOPEEPAY.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "SL",
+      "paymentName": "SHOPEEPAY LINK",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/SHOPEEPAY.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "BR",
+      "paymentName": "BRI VA",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/BR.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "NC",
+      "paymentName": "BNC VA",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/NC.PNG",
+      "totalFee": "0"
+    },
+    {
+      "paymentMethod": "IR",
+      "paymentName": "INDOMARET",
+      "paymentImage": "https://images.duitku.com/hotlink-ok/IR.PNG",
+      "totalFee": "0"
+    }
+  ]
+}

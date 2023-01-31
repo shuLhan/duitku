@@ -199,6 +199,54 @@ func TestClient_InquiryStatus_sandbox(t *testing.T) {
 	test.Assert(t, `InquiryStatus`, expInquiryStatus, resInqueryStatus)
 }
 
+func TestClient_MerchantPaymentMethod(t *testing.T) {
+	var (
+		tdata *test.Data
+		err   error
+	)
+
+	err = initClientMerchant()
+	if err != nil {
+		t.Skip(err)
+	}
+
+	tdata, err = test.LoadData(`testdata/merchant/payment_method_test.txt`)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var (
+		req  *PaymentMethod
+		resp *PaymentMethodResponse
+		tag  string
+	)
+
+	tag = `payment_method_request.json`
+	err = json.Unmarshal(tdata.Input[tag], &req)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	resp, err = testClientMerchant.MerchantPaymentMethod(req)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var (
+		exp []byte
+		got []byte
+	)
+
+	got, err = json.MarshalIndent(resp, ``, `  `)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tag = `payment_method_response.json`
+	exp = tdata.Output[tag]
+	test.Assert(t, `PaymentMethod`, string(exp), string(got))
+}
+
 func TestClient_RtolInquiry_sandbox(t *testing.T) {
 	var (
 		err        error
