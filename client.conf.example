@@ -3,3 +3,11 @@ server_url = https://sandbox.duitku.com
 disburse_user_id = 3551
 disburse_email = test@chakratechnology.com
 disburse_api_key = de56f832487bc1ce1de5ff2cfacf8d9486c61da69df6fd61d5537b6b7d6d354d
+
+merchant_code =
+merchant_api_key =
+merchant_callback_url =
+merchant_return_url =
+
+indomaret_merchant_code =
+indomaret_api_key =

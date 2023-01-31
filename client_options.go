@@ -31,6 +31,14 @@ type ClientOptions struct {
 	// MerchantApiKey The API key for signing merchant related request.
 	MerchantApiKey string `ini:"duitku::merchant_api_key"`
 
+	// MerchantCallbackUrl The URL that will be used by Duitku to
+	// confirm payments made by your customers.
+	MerchantCallbackUrl string `ini:"duitku::merchant_callback_url"`
+
+	// MerchantReturnUrl The URL that Duitku will direct the customer
+	// after the transaction is successful or canceled.
+	MerchantReturnUrl string `ini:"duitku::merchant_return_url"`
+
 	// Merchant code and API key for payment through Indomaret.
 	IndomaretMerchantCode string `ini:"duitku::indomaret_merchant_code"`
 	IndomaretApiKey       string `ini:"duitku::indomaret_api_key"`
