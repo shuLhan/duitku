@@ -6,11 +6,14 @@ package duitku
 import (
 	"fmt"
 	"net/url"
+	"os"
+
+	"github.com/shuLhan/share/lib/ini"
 )
 
 // ClientOptions configuration for HTTP client.
 type ClientOptions struct {
-	ServerUrl string
+	ServerUrl string `ini:"duitku::server_url"`
 
 	// The hostname extracted from ServerUrl.
 	host string
@@ -23,23 +26,44 @@ type ClientOptions struct {
 	// [merchant portal].
 	//
 	// [merchant portal]: https://passport.duitku.com/merchant/Project
-	MerchantCode string
+	MerchantCode string `ini:"duitku::merchant_code"`
 
 	// MerchantApiKey The API key for signing merchant related request.
-	MerchantApiKey string
+	MerchantApiKey string `ini:"duitku::merchant_api_key"`
 
 	// Merchant code and API key for payment through Indomaret.
-	IndomaretMerchantCode string
-	IndomaretApiKey       string
+	IndomaretMerchantCode string `ini:"duitku::indomaret_merchant_code"`
+	IndomaretApiKey       string `ini:"duitku::indomaret_api_key"`
 
 	// DisburseApiKey API key for signing disbursement request.
-	DisburseApiKey string
+	DisburseApiKey string `ini:"duitku::disburse_api_key"`
 
 	// DisburseEmail The email registered for disbursement in Duitku.
-	DisburseEmail string
+	DisburseEmail string `ini:"duitku::disburse_email"`
 
 	// DisburseUserID user ID for disbursement request.
-	DisburseUserID int64
+	DisburseUserID int64 `ini:"duitku::disburse_user_id"`
+}
+
+// LoadClientOptions load ClientOptions from file.
+// See the client.conf.example for an example for client configuration.
+func LoadClientOptions(file string) (opts *ClientOptions, err error) {
+	var (
+		logp    = `LoadClientOptions`
+		content []byte
+	)
+	content, err = os.ReadFile(file)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+
+	opts = &ClientOptions{}
+	err = ini.Unmarshal(content, opts)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+
+	return opts, nil
 }
 
 // validate each field values.

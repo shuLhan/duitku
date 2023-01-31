@@ -15,17 +15,16 @@ var (
 
 func TestMain(m *testing.M) {
 	var (
-		clOpts = ClientOptions{
-			ServerUrl:      ServerUrlSandbox,
-			DisburseUserID: 3551,
-			DisburseEmail:  `test@chakratechnology.com`,
-			DisburseApiKey: `de56f832487bc1ce1de5ff2cfacf8d9486c61da69df6fd61d5537b6b7d6d354d`,
-		}
-
-		err error
+		opts *ClientOptions
+		err  error
 	)
 
-	testClient, err = NewClient(clOpts)
+	opts, err = LoadClientOptions(`client.conf.example`)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	testClient, err = NewClient(*opts)
 	if err != nil {
 		log.Fatal(err)
 	}
