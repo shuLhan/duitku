@@ -45,19 +45,21 @@ func (req *PaymentMethod) SetDateTime(t time.Time) {
 // Signature.
 func (req *PaymentMethod) Sign(opts ClientOptions) {
 	var (
+		merchant = opts.DefaultMerchant
+
 		plain string
 		hash  [sha256.Size]byte
 	)
 
 	if len(req.MerchantCode) == 0 {
-		req.MerchantCode = opts.MerchantCode
+		req.MerchantCode = merchant.Code
 	}
 
 	if len(req.DateTime) == 0 {
 		req.SetDateTime(time.Now())
 	}
 
-	plain = fmt.Sprintf(`%s%d%s%s`, req.MerchantCode, req.Amount, req.DateTime, opts.MerchantApiKey)
+	plain = fmt.Sprintf(`%s%d%s%s`, req.MerchantCode, req.Amount, req.DateTime, merchant.ApiKey)
 	hash = sha256.Sum256([]byte(plain))
 
 	req.Signature = hex.EncodeToString(hash[:])

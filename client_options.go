@@ -18,30 +18,12 @@ type ClientOptions struct {
 	// The hostname extracted from ServerUrl.
 	host string
 
-	// The merchant code is the project code obtained from the Duitku
-	// merchant page.
-	// This code is useful as an identifier of your project in each
-	// request using the /merchant/* APIs.
-	// You can get this code on every project you register on the
-	// [merchant portal].
-	//
-	// [merchant portal]: https://passport.duitku.com/merchant/Project
-	MerchantCode string `ini:"duitku::merchant_code"`
+	// DefaultMerchant default merchant to be used for payment.
+	DefaultMerchant Merchant `ini:"default-merchant"`
 
-	// MerchantApiKey The API key for signing merchant related request.
-	MerchantApiKey string `ini:"duitku::merchant_api_key"`
-
-	// MerchantCallbackUrl The URL that will be used by Duitku to
-	// confirm payments made by your customers.
-	MerchantCallbackUrl string `ini:"duitku::merchant_callback_url"`
-
-	// MerchantReturnUrl The URL that Duitku will direct the customer
-	// after the transaction is successful or canceled.
-	MerchantReturnUrl string `ini:"duitku::merchant_return_url"`
-
-	// Merchant code and API key for payment through Indomaret.
-	IndomaretMerchantCode string `ini:"duitku::indomaret_merchant_code"`
-	IndomaretApiKey       string `ini:"duitku::indomaret_api_key"`
+	// PaymentMerchant specific merchant to be used based on payment
+	// method.
+	PaymentMerchant map[string]Merchant `ini:"merchant"`
 
 	// DisburseApiKey API key for signing disbursement request.
 	DisburseApiKey string `ini:"duitku::disburse_api_key"`
@@ -74,8 +56,23 @@ func LoadClientOptions(file string) (opts *ClientOptions, err error) {
 	return opts, nil
 }
 
-// validate each field values.
-func (opts *ClientOptions) validate() (err error) {
+// Merchant return the PaymentMerchant based on paymentMethod.
+// If no key found, it will return DefaultMerchant.
+func (opts *ClientOptions) Merchant(paymentMethod string) (merchant Merchant) {
+	var (
+		found bool
+	)
+
+	merchant, found = opts.PaymentMerchant[paymentMethod]
+	if !found {
+		merchant = opts.DefaultMerchant
+	}
+
+	return merchant
+}
+
+// initAndValidate each field values.
+func (opts *ClientOptions) initAndValidate() (err error) {
 	var (
 		urlServer *url.URL
 	)
@@ -94,6 +91,20 @@ func (opts *ClientOptions) validate() (err error) {
 	}
 	if len(opts.DisburseApiKey) == 0 {
 		return fmt.Errorf(`invalid or empty DisburseApiKey: %s`, opts.DisburseApiKey)
+	}
+
+	var (
+		method   string
+		merchant Merchant
+	)
+	for method, merchant = range opts.PaymentMerchant {
+		if len(merchant.CallbackUrl) == 0 {
+			merchant.CallbackUrl = opts.DefaultMerchant.CallbackUrl
+		}
+		if len(merchant.ReturnUrl) == 0 {
+			merchant.ReturnUrl = opts.DefaultMerchant.ReturnUrl
+		}
+		opts.PaymentMerchant[method] = merchant
 	}
 
 	return nil

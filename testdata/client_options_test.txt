@@ -1,0 +1,39 @@
+>>> all.conf
+[duitku]
+server_url = https://sandbox.duitku.com
+disburse_user_id = 1111
+disburse_email = my@company.com
+disburse_api_key = abcd
+
+[default-merchant]
+code = DXXXX
+api_key = d3f4ult
+callback_url = https://example.com/callback
+return_url = https://example.com/payment
+
+## Payment using Indomaret use this merchant.
+[merchant "IR"]
+code = DYYYY
+api_key = 1ndom4r3t
+
+<<< all.json
+{
+  "ServerUrl": "https://sandbox.duitku.com",
+  "DefaultMerchant": {
+    "Code": "DXXXX",
+    "ApiKey": "d3f4ult",
+    "CallbackUrl": "https://example.com/callback",
+    "ReturnUrl": "https://example.com/payment"
+  },
+  "PaymentMerchant": {
+    "IR": {
+      "Code": "DYYYY",
+      "ApiKey": "1ndom4r3t",
+      "CallbackUrl": "https://example.com/callback",
+      "ReturnUrl": "https://example.com/payment"
+    }
+  },
+  "DisburseApiKey": "abcd",
+  "DisburseEmail": "my@company.com",
+  "DisburseUserID": 1111
+}
