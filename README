@@ -9,10 +9,18 @@ https://duitku.com[duitku.com].
 
 Supported HTTP APIs,
 
-* https://docs.duitku.com/disbursement/en/#transfer-online[Transfer online^]
-* https://docs.duitku.com/disbursement/en/#clearing-transaction-flow[Clearing^]
-* https://docs.duitku.com/disbursement/en/#inquiry-list-bank[Inquiry list bank^]
-* https://docs.duitku.com/disbursement/en/#inquiry-check-balance-request[Check balance^]
+* Disbursement,
+
+** https://docs.duitku.com/disbursement/en/#transfer-online[Transfer online^]
+** https://docs.duitku.com/disbursement/en/#clearing-transaction-flow[Clearing^]
+** https://docs.duitku.com/disbursement/en/#inquiry-list-bank[Inquiry list bank^]
+** https://docs.duitku.com/disbursement/en/#inquiry-check-balance-request[Check balance^]
+
+* Merchant,
+
+** https://docs.duitku.com/api/en/#get-payment-method[Get payment method^]
+** https://docs.duitku.com/api/en/#request-transaction[Inquiry^]
+** https://docs.duitku.com/api/en/#check-transaction[Check transaction status^]
 
 // SPDX-FileCopyrightText: 2022 M. Shulhan <ms@kilabit.info>
 // SPDX-License-Identifier: GPL-3.0-or-later
