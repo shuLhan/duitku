@@ -19,3 +19,12 @@
   "qrString": "",
   "amount": "10000"
 }
+
+<<< tx_status_response.json
+{
+  "merchantOrderId": "1",
+  "reference": "$ref",
+  "amount": "10000",
+  "statusCode": "01",
+  "statusMessage": "PROCESS"
+}

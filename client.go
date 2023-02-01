@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"net/url"
 	"sort"
 	"strings"
 
@@ -36,8 +37,9 @@ const (
 	PathTransferClearing        = `/webapi/api/disbursement/transferclearing`
 	PathTransferClearingSandbox = `/webapi/api/disbursement/transferclearingsandbox` // Used for testing.
 
-	PathMerchantPaymentMethod = `/webapi/api/merchant/paymentmethod/getpaymentmethod`
-	PathMerchantInquiry       = `/webapi/api/merchant/v2/inquiry`
+	PathMerchantInquiry           = `/webapi/api/merchant/v2/inquiry`
+	PathMerchantPaymentMethod     = `/webapi/api/merchant/paymentmethod/getpaymentmethod`
+	PathMerchantTransactionStatus = `/webapi/api/merchant/transactionStatus`
 )
 
 type Client struct {
@@ -308,6 +310,44 @@ func (cl *Client) MerchantPaymentMethod(req *PaymentMethod) (resp *PaymentMethod
 	req.Sign(cl.opts)
 
 	httpRes, resBody, err = cl.PostJSON(path, nil, req)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+	if httpRes.StatusCode >= 400 {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, httpRes.Status, resBody)
+	}
+
+	err = json.Unmarshal(resBody, &resp)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+
+	return resp, nil
+}
+
+// [MerchantTxStatus] get the status of payment from customer.
+//
+// [MerchantTxStatus]: https://docs.duitku.com/api/en/#check-transaction
+func (cl *Client) MerchantTxStatus(orderID, paymentMethod string) (resp *TxStatusResponse, err error) {
+	var (
+		logp = `MerchantTxStatus`
+		req  = transactionStatus{
+			OrderID: orderID,
+		}
+
+		params  url.Values
+		httpRes *http.Response
+		resBody []byte
+	)
+
+	req.sign(cl.opts, paymentMethod)
+
+	params, err = libhttp.MarshalForm(req)
+	if err != nil {
+		return nil, fmt.Errorf(`%s: %w`, logp, err)
+	}
+
+	httpRes, resBody, err = cl.PostForm(PathMerchantTransactionStatus, nil, params)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}

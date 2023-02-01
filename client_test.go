@@ -254,6 +254,28 @@ func TestClient_MerchantInquiry(t *testing.T) {
 	t.Logf(`MerchantInquiry: response: %s`, got)
 
 	test.Assert(t, `MerchantInquiry`, string(exp), string(got))
+
+	// Test checking the transaction status.
+
+	var (
+		txResp *TxStatusResponse
+	)
+
+	txResp, err = testClientMerchant.MerchantTxStatus(req.MerchantOrderId, req.PaymentMethod)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	got, err = json.MarshalIndent(txResp, ``, `  `)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tag = `tx_status_response.json`
+	exp = tdata.Output[tag]
+	exp = bytes.ReplaceAll(exp, []byte(`$ref`), []byte(resp.Reference))
+	t.Logf(`MerchantTxStatus: response: %s`, got)
+	test.Assert(t, `MerchantTxStatus`, string(exp), string(got))
 }
 
 func TestClient_MerchantPaymentMethod(t *testing.T) {
