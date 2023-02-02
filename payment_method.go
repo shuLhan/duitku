@@ -13,7 +13,9 @@ import (
 const (
 	// PaymentMethodDatetimeLayout define the date and time format for
 	// PaymentMethod.DateTime.
-	PaymentMethodDatetimeLayout = time.DateTime
+	//
+	// TODO: replace with time.DateTime once the go version is 1.20.
+	PaymentMethodDatetimeLayout = `2006-01-02 15:04:05`
 )
 
 // PaymentMethod contains request for client MerchantPaymentMethod.
