@@ -65,6 +65,12 @@ type MerchantInquiry struct {
 	// Make sure the PaymentAmount is equal to the total Price in the
 	// ItemDetails.
 	PaymentAmount int64 `json:"paymentAmount"`
+
+	// [OPT] Transaction expiry period in minutes.
+	// If its empty, it will set to [default] based on PaymentMethod.
+	//
+	// [default]: https://docs.duitku.com/api/en/#expiry-period
+	ExpiryPeriod int `json:"expiryPeriod,omitempty"`
 }
 
 // merchantInquiry contains internal fields that will be set by client
@@ -93,12 +99,6 @@ type merchantInquiry struct {
 	Signature string `json:"signature"`
 
 	MerchantInquiry
-
-	// [OPT] Transaction expiry period in minutes.
-	// If its empty, it will set to [default] based on PaymentMethod.
-	//
-	// [default]: https://docs.duitku.com/api/en/#expiry-period
-	ExpiryPeriod int `json:"expiryPeriod,omitempty"`
 }
 
 func (inq *merchantInquiry) sign(opts ClientOptions) {
