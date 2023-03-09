@@ -265,20 +265,17 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 // numbers, QRIS, e-wallet, and so on).
 //
 // Ref: https://docs.duitku.com/api/en/#request-transaction
-func (cl *Client) MerchantInquiry(req MerchantInquiry) (resp *MerchantInquiryResponse, err error) {
+func (cl *Client) MerchantInquiry(req *MerchantInquiry) (resp *MerchantInquiryResponse, err error) {
 	var (
-		logp  = `MerchantInquiry`
-		inreq = merchantInquiry{
-			MerchantInquiry: req,
-		}
+		logp = `MerchantInquiry`
 
 		httpRes *http.Response
 		resBody []byte
 	)
 
-	inreq.sign(cl.opts)
+	req.sign(cl.opts)
 
-	httpRes, resBody, err = cl.PostJSON(PathMerchantInquiry, nil, inreq)
+	httpRes, resBody, err = cl.PostJSON(PathMerchantInquiry, nil, req)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}

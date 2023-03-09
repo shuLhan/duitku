@@ -228,7 +228,7 @@ func TestClient_MerchantInquiry(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	resp, err = testClientMerchant.MerchantInquiry(*req)
+	resp, err = testClientMerchant.MerchantInquiry(req)
 	if err != nil {
 		t.Fatal(err)
 	}

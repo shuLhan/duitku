@@ -11,6 +11,15 @@ import (
 
 // MerchantInquiry define request data for payment using merchant.
 type MerchantInquiry struct {
+	// [REQ] MerchantCode is a project that use Duitku.
+	//
+	// You can get this code on every project you register on the
+	// [merchant portal].
+	// Default to ClientOptions.MerchantCode.
+	//
+	// [merchant portal]: https://passport.duitku.com/merchant/Project
+	MerchantCode string `json:"merchantCode"`
+
 	// [REQ] Transaction number from merchant.
 	// Every request for a new transaction must use a new ID.
 	MerchantOrderId string `json:"merchantOrderId"`
@@ -35,6 +44,19 @@ type MerchantInquiry struct {
 
 	// [REQ] The name that would be shown at bank payment system.
 	CustomerVaName string `json:"customerVaName"`
+
+	// [REQ] A link that is used for redirect after exit payment page,
+	// being paid or not.
+	// Default to ClientOptions.MerchantReturnUrl.
+	ReturnUrl string `json:"returnUrl"`
+
+	// [REQ] A link for callback transaction.
+	// Default to ClientOptions.MerchantCallbackUrl.
+	CallbackUrl string `json:"callbackUrl"`
+
+	// [REQ] Transaction security identification code.
+	// Formula: MD5(merchantCode + merchantOrderId + paymentAmount + apiKey).
+	Signature string `json:"signature"`
 
 	// [OPT] Additional parameter to be used by merchant.
 	// If its set, the value must be URL encoded.
@@ -73,40 +95,18 @@ type MerchantInquiry struct {
 	ExpiryPeriod int `json:"expiryPeriod,omitempty"`
 }
 
-// merchantInquiry contains internal fields that will be set by client
-// during Sign.
-type merchantInquiry struct {
-	// [REQ] A link for callback transaction.
-	// Default to ClientOptions.MerchantCallbackUrl.
-	CallbackUrl string `json:"callbackUrl"`
-
-	// [REQ] MerchantCode is a project that use Duitku.
-	//
-	// You can get this code on every project you register on the
-	// [merchant portal].
-	// Default to ClientOptions.MerchantCode.
-	//
-	// [merchant portal]: https://passport.duitku.com/merchant/Project
-	MerchantCode string `json:"merchantCode"`
-
-	// [REQ] A link that is used for redirect after exit payment page,
-	// being paid or not.
-	// Default to ClientOptions.MerchantReturnUrl.
-	ReturnUrl string `json:"returnUrl"`
-
-	// [REQ] Transaction security identification code.
-	// Formula: MD5(merchantCode + merchantOrderId + paymentAmount + apiKey).
-	Signature string `json:"signature"`
-
-	MerchantInquiry
-}
-
-func (inq *merchantInquiry) sign(opts ClientOptions) {
+func (inq *MerchantInquiry) sign(opts ClientOptions) {
 	var merchant = opts.Merchant(inq.PaymentMethod)
 
-	inq.CallbackUrl = merchant.CallbackUrl
-	inq.MerchantCode = merchant.Code
-	inq.ReturnUrl = merchant.ReturnUrl
+	if len(inq.MerchantCode) == 0 {
+		inq.MerchantCode = merchant.Code
+	}
+	if len(inq.CallbackUrl) == 0 {
+		inq.CallbackUrl = merchant.CallbackUrl
+	}
+	if len(inq.ReturnUrl) == 0 {
+		inq.ReturnUrl = merchant.ReturnUrl
+	}
 
 	var (
 		plain    = fmt.Sprintf(`%s%s%d%s`, inq.MerchantCode, inq.MerchantOrderId, inq.PaymentAmount, merchant.ApiKey)
