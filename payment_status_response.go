@@ -3,16 +3,16 @@
 
 package duitku
 
-// List of valid Code in TxStatusResponse.
+// List of valid Code in PaymentStatusResponse.
 const (
-	MerchantTxStatusSuccess = `00`
-	MerchantTxStatusProcess = `01`
-	MerchantTxStatusFailed  = `02`
+	PaymentStatusSuccess = `00`
+	PaymentStatusProcess = `01`
+	PaymentStatusFailed  = `02`
 )
 
-// TxStatusResponse contains response from checking merchant payment
+// PaymentStatusResponse contains response from checking merchant payment
 // status.
-type TxStatusResponse struct {
+type PaymentStatusResponse struct {
 	OrderID   string `json:"merchantOrderId"`
 	Reference string `json:"reference"`
 	Amount    string `json:"amount"`

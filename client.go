@@ -322,24 +322,21 @@ func (cl *Client) MerchantPaymentMethod(req *PaymentMethod) (resp *PaymentMethod
 	return resp, nil
 }
 
-// [MerchantTxStatus] get the status of payment from customer.
+// [MerchantPaymentStatus] get the status of payment from customer.
 //
-// [MerchantTxStatus]: https://docs.duitku.com/api/en/#check-transaction
-func (cl *Client) MerchantTxStatus(orderID, paymentMethod string) (resp *TxStatusResponse, err error) {
+// [MerchantPaymentStatus]: https://docs.duitku.com/api/en/#check-transaction
+func (cl *Client) MerchantPaymentStatus(req *PaymentStatus) (resp *PaymentStatusResponse, err error) {
 	var (
-		logp = `MerchantTxStatus`
-		req  = transactionStatus{
-			OrderID: orderID,
-		}
+		logp = `MerchantPaymentStatus`
 
 		params  url.Values
 		httpRes *http.Response
 		resBody []byte
 	)
 
-	req.sign(cl.opts, paymentMethod)
+	req.sign(cl.opts)
 
-	params, err = libhttp.MarshalForm(req)
+	params, err = libhttp.MarshalForm(*req)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}

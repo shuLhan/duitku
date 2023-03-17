@@ -9,7 +9,7 @@ import (
 	"fmt"
 )
 
-type transactionStatus struct {
+type PaymentStatus struct {
 	MerchantCode string `form:"merchantCode"`
 	OrderID      string `form:"merchantOrderId"`
 
@@ -18,15 +18,15 @@ type transactionStatus struct {
 	Signature string `form:"signature"`
 }
 
-func (tx *transactionStatus) sign(opts ClientOptions, paymentMethod string) {
-	var merchant = opts.Merchant(paymentMethod)
+func (req *PaymentStatus) sign(opts ClientOptions) {
+	var merchant = opts.Merchant(req.MerchantCode)
 
-	tx.MerchantCode = merchant.Code
+	req.MerchantCode = merchant.Code
 
 	var (
-		plain    = fmt.Sprintf(`%s%s%s`, tx.MerchantCode, tx.OrderID, merchant.ApiKey)
+		plain    = fmt.Sprintf(`%s%s%s`, req.MerchantCode, req.OrderID, merchant.ApiKey)
 		md5Plain = md5.Sum([]byte(plain))
 	)
 
-	tx.Signature = hex.EncodeToString(md5Plain[:])
+	req.Signature = hex.EncodeToString(md5Plain[:])
 }
