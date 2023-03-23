@@ -24,8 +24,8 @@ func (inq *InquiryStatus) Sign(opts ClientOptions) {
 	inq.Email = opts.DisburseEmail
 	inq.Timestamp = time.Now().UnixMilli()
 
-	var plain string = fmt.Sprintf(`%s%d%d%s`, inq.Email, inq.Timestamp, inq.DisburseID, opts.DisburseApiKey)
-	var plainHash [sha256.Size]byte = sha256.Sum256([]byte(plain))
+	var plain = fmt.Sprintf(`%s%d%d%s`, inq.Email, inq.Timestamp, inq.DisburseID, opts.DisburseApiKey)
+	var plainHash = sha256.Sum256([]byte(plain))
 
 	inq.Signature = hex.EncodeToString(plainHash[:])
 }

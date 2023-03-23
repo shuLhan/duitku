@@ -3,9 +3,9 @@
 
 package duitku
 
-// [CustomerDetail] detail of customer information for payment to merchant.
+// CustomerDetail detail of [customer] information for payment to merchant.
 //
-// [CustomerDetail]: https://docs.duitku.com/api/en/#customer-detail
+// [customer]: https://docs.duitku.com/api/en/#customer-detail
 type CustomerDetail struct {
 	FirstName       string  `json:"firstName"`
 	LastName        string  `json:"lastName"`

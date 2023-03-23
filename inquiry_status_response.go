@@ -5,6 +5,7 @@ package duitku
 
 import "github.com/shuLhan/share/lib/math/big"
 
+// InquiryStatusResponse define response valeus from InquiryStatus.
 type InquiryStatusResponse struct {
 	Response
 

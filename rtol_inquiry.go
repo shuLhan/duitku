@@ -52,7 +52,7 @@ func (inq *RtolInquiry) Sign(opts ClientOptions) {
 		plain = fmt.Sprintf(`%s%d%s%s%d%s%s`, inq.Email,
 			inq.Timestamp, inq.BankCode, inq.BankAccount,
 			inq.Amount, inq.Purpose, opts.DisburseApiKey)
-		plainHash [sha256.Size]byte = sha256.Sum256([]byte(plain))
+		plainHash = sha256.Sum256([]byte(plain))
 	)
 	inq.Signature = hex.EncodeToString(plainHash[:])
 }

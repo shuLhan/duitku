@@ -3,15 +3,17 @@
 
 package duitku
 
+// Merchant the merchant configuration for payment.
+//
+// You can get the values of Merchant from project you registered on the
+// [merchant portal].
+//
+// [merchant portal]: https://passport.duitku.com/merchant/Project
 type Merchant struct {
 	// The merchant code is the project code obtained from the Duitku
 	// merchant page.
 	// This code is useful as an identifier of your project in each
 	// request using the /merchant/* APIs.
-	// You can get this code on every project you register on the
-	// [merchant portal].
-	//
-	// [merchant portal]: https://passport.duitku.com/merchant/Project
 	Code string `ini:"::code"`
 
 	// The API key for signing merchant request.

@@ -3,10 +3,10 @@
 
 package duitku
 
-// [AccountLink] Parameter for payment methods that use OVO Account Link and
-// Shopee Account Link.
+// AccountLink Parameter for payment methods that use OVO or Shopee
+// [account link].
 //
-// [AccountLink]: https://docs.duitku.com/api/en/#account-link
+// [account link]: https://docs.duitku.com/api/en/#account-link
 type AccountLink struct {
 	// [REQ] Credential Code provide by Duitku.
 	CredentialCode string `json:"credentialCode"`
@@ -18,13 +18,14 @@ type AccountLink struct {
 	Shopee AccountLinkShopee `json:"shopee"`
 }
 
+// AccountLinkOvo account link information with [OVO].
+//
+// [OVO]: https://docs.duitku.com/api/en/#ovo-detail
 type AccountLinkOvo struct {
 	PaymentDetails []OvoPaymentDetail `json:"paymentDetails"`
 }
 
-// [AccountLinkOvo] payment detail with OVO.
-//
-// [AccountLinkOvo]: https://docs.duitku.com/api/en/#ovo-detail
+// OvoPaymentDetail payment detail for account link OVO.
 type OvoPaymentDetail struct {
 	// [REQ] Type of your payment.
 	PaymentType string `json:"paymentType"`
@@ -33,9 +34,9 @@ type OvoPaymentDetail struct {
 	Amount int64 `json:"amount"`
 }
 
-// [AccountLinkShopee] payment detail with Shopee.
+// AccountLinkShopee payment detail with [Shopee].
 //
-// [AccountLinkShopee]: https://docs.duitku.com/api/en/#shopee-detail
+// [Shopee]: https://docs.duitku.com/api/en/#shopee-detail
 type AccountLinkShopee struct {
 	// [REQ] Voucher code.
 	PromoIDs string `json:"promo_ids"`

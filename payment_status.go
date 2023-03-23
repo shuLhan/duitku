@@ -9,6 +9,8 @@ import (
 	"fmt"
 )
 
+// PaymentStatus define the request to get the latest order ID payment status
+// based on its merchant.
 type PaymentStatus struct {
 	MerchantCode string `form:"merchantCode"`
 	OrderID      string `form:"merchantOrderId"`

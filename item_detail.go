@@ -3,9 +3,10 @@
 
 package duitku
 
-// [ItemDetail] define the subset of product being payed during payment.
+// ItemDetail define the subset of [product detail] being payed during
+// payment.
 //
-// [ItemDetail]: https://docs.duitku.com/api/en/#item-details
+// [product detail]: https://docs.duitku.com/api/en/#item-details
 type ItemDetail struct {
 	// [REQ] Name of the item.
 	Name string `json:"name"`

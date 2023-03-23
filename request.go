@@ -25,6 +25,8 @@ type Request struct {
 	Timestamp int64 `json:"timestamp"`
 }
 
+// CreateDisburseRequest create request for disbursement using ClientOptions
+// opts.
 func CreateDisburseRequest(opts ClientOptions) (req Request) {
 	req.UserID = opts.DisburseUserID
 	req.Email = opts.DisburseEmail

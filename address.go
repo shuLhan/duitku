@@ -3,9 +3,9 @@
 
 package duitku
 
-// [Address] contains detailed address of customer.
+// Address contains detailed [address] of customer.
 //
-// [Address]: https://docs.duitku.com/api/en/#address
+// [address]: https://docs.duitku.com/api/en/#address
 type Address struct {
 	FirstName   string `json:"firstName"`
 	LastName    string `json:"lastName"`

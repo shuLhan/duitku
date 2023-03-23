@@ -42,6 +42,7 @@ const (
 	PathMerchantTransactionStatus = `/webapi/api/merchant/transactionStatus`
 )
 
+// Client HTTP client for duitku disbursement and payment APIs.
 type Client struct {
 	*libhttp.Client
 
@@ -247,7 +248,7 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 
 	// Sort the list by Code and then by Name in case code is equal.
 	sort.Slice(banks, func(x, y int) bool {
-		var cmp int = strings.Compare(banks[x].Code, banks[y].Code)
+		var cmp = strings.Compare(banks[x].Code, banks[y].Code)
 		if cmp == -1 {
 			return true
 		}
@@ -322,9 +323,9 @@ func (cl *Client) MerchantPaymentMethod(req *PaymentMethod) (resp *PaymentMethod
 	return resp, nil
 }
 
-// [MerchantPaymentStatus] get the status of payment from customer.
+// MerchantPaymentStatus get the [status of payment] from customer.
 //
-// [MerchantPaymentStatus]: https://docs.duitku.com/api/en/#check-transaction
+// [status of payment]: https://docs.duitku.com/api/en/#check-transaction
 func (cl *Client) MerchantPaymentStatus(req *PaymentStatus) (resp *PaymentStatusResponse, err error) {
 	var (
 		logp = `MerchantPaymentStatus`

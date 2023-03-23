@@ -3,13 +3,13 @@
 
 package duitku
 
-// [PaymentFee] contains fee for payment method.
+// PaymentFee contains [fee] for payment method.
 //
 // If the settings in the merchant portal fees are charged to the
 // merchant, the TotalFee will appear 0.
 // The TotalFee will appear if it is charged to the customer.
 //
-// [PaymentFee]: https://docs.duitku.com/api/en/#payment-fee
+// [fee]: https://docs.duitku.com/api/en/#payment-fee
 type PaymentFee struct {
 	// Payment method code.
 	PaymentMethod string `json:"paymentMethod"`

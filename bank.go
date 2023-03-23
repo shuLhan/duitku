@@ -7,6 +7,7 @@ import (
 	"github.com/shuLhan/share/lib/math/big"
 )
 
+// Bank contains bank information from response of ListBank.
 type Bank struct {
 	MaxTransfer *big.Rat `json:"maxAmountTransfer"`
 
