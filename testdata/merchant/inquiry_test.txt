@@ -10,14 +10,14 @@
 
 <<< response.json
 {
-  "responseCode": "",
-  "responseDesc": "",
   "merchantCode": "[redacted]",
   "reference": "$ref",
   "paymentUrl": "$payment_url",
   "vaNumber": "$va",
   "qrString": "",
-  "amount": "10000"
+  "amount": "10000",
+  "statusCode": "00",
+  "statusMessage": "SUCCESS"
 }
 
 <<< tx_status_response.json

@@ -5,8 +5,6 @@ package duitku
 
 // MerchantInquiryResponse contains response from MerchantInquiry.
 type MerchantInquiryResponse struct {
-	Response
-
 	// Indicates which project used in this transaction.
 	MerchantCode string `json:"merchantCode"`
 
@@ -25,4 +23,13 @@ type MerchantInquiryResponse struct {
 
 	// Payment amount.
 	Amount string `json:"amount"`
+
+	// Status code transaction.
+	//   - 00 - Success
+	//   - 01 - Process
+	//   - 02 - Failed/Expired
+	Code string `json:"statusCode"`
+
+	// Description that explain the status Code.
+	Message string `json:"statusMessage"`
 }
