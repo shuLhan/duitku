@@ -93,9 +93,6 @@ func (cl *Client) CheckBalance() (bal *Balance, err error) {
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %s`, logp, err)
 	}
-	if bal.Code != ResCodeSuccess {
-		return nil, fmt.Errorf(`%s: %s: %s`, logp, bal.Code, bal.Desc)
-	}
 
 	return bal, nil
 }
@@ -130,9 +127,6 @@ func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryRes
 	err = json.Unmarshal(resBody, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
-	}
-	if res.Code != ResCodeSuccess {
-		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
 	}
 
 	return res, nil
@@ -399,9 +393,6 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 	err = json.Unmarshal(resBody, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
-	}
-	if res.Code != ResCodeSuccess {
-		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
 	}
 
 	return res, nil
