@@ -32,4 +32,7 @@ type MerchantInquiryResponse struct {
 
 	// Description that explain the status Code.
 	Message string `json:"statusMessage"`
+
+	// Response body when http request failed
+	ErrorMessage string `json:"Message,omitempty"`
 }
