@@ -274,7 +274,7 @@ func (cl *Client) MerchantInquiry(req *MerchantInquiry) (resp *MerchantInquiryRe
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if httpRes.StatusCode >= 400 {
+	if httpRes.StatusCode >= 500 {
 		return nil, fmt.Errorf(`%s: %s: %s`, logp, httpRes.Status, resBody)
 	}
 
