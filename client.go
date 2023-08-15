@@ -236,7 +236,7 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %s`, logp, err)
 	}
-	if res.Code != ResCodeSuccess {
+	if res.Code != StatusCodeSuccess {
 		return nil, fmt.Errorf(`%s: %s: %s`, logp, res.Code, res.Desc)
 	}
 
