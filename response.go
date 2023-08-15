@@ -34,6 +34,35 @@ const (
 	StatusCodeErrTimestampExpired = `-960` // Timestamp is expired (5 minutes).
 )
 
+// List of known [error codes].
+//
+// [error codes]: https://docs.duitku.com/disbursement/en/?json#error-code
+const (
+	ErrorCodeSuccess             = `00`
+	ErrorCodeCardIssuer          = `01`
+	ErrorCodeInvalidMerchant     = `03`
+	ErrorCodeCaptureCard         = `04`
+	ErrorCodeDonothonor          = `05`
+	ErrorCodeInvalidTransaction  = `12`
+	ErrorCodeInvalidAmount       = `13`
+	ErrorCodeInvalidCardNumber   = `14`
+	ErrorCodeInvalidIssuer       = `15`
+	ErrorCodeInvalidResponse     = `20`
+	ErrorCodeFormat              = `30`
+	ErrorCodeUnsupportedBank     = `31`
+	ErrorCodeExpiredCard         = `33`
+	ErrorCodeRestrictedCard      = `36`
+	ErrorCodePinTriesExceeded    = `38`
+	ErrorCodeNoCreditAccount     = `39`
+	ErrorCodeUnsupportedFunction = `40`
+	ErrorCodeLostCard            = `41`
+	ErrorCodeStolenCard          = `43`
+	ErrorCodeInsufficientFund    = `51`
+	ErrorCodeNoChequingAccount   = `52`
+	ErrorCodeTimeout             = `68`
+	ErrorCodeIssueNotOperative   = `91`
+)
+
 // Response contains commons fields for each HTTP response.
 type Response struct {
 	Code string `json:"responseCode"`
