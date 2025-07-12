@@ -155,6 +155,11 @@ Some JSON is sorted using jq, for example
     "bankName": "SHOPEEPAY"
   },
   {
+    "maxAmountTransfer": "1000000000",
+    "bankCode": "1014",
+    "bankName": "LINKAJA"
+  },
+  {
     "maxAmountTransfer": "100000000",
     "bankCode": "110",
     "bankName": "PT. BPD JAWA BARAT DAN BANTEN, TBK"
@@ -400,6 +405,11 @@ Some JSON is sorted using jq, for example
     "bankName": "PT BANK SBI INDONESIA"
   },
   {
+    "maxAmountTransfer": "25000000",
+    "bankCode": "501",
+    "bankName": "BANK DIGITAL BCA"
+  },
+  {
     "maxAmountTransfer": "50000000",
     "bankCode": "501",
     "bankName": "PT BANK ROYAL INDONESIA"
@@ -518,5 +528,10 @@ Some JSON is sorted using jq, for example
     "maxAmountTransfer": "100000000",
     "bankCode": "950",
     "bankName": "PT BANK COMMONWEALTH"
+  },
+  {
+    "maxAmountTransfer": "500000000",
+    "bankCode": "ASP1R3",
+    "bankName": "ASPIRE ACCOUNT"
   }
 ]

@@ -197,6 +197,7 @@ func TestClient_InquiryStatus_sandbox(t *testing.T) {
 		t.Fatal(err)
 	}
 	expInquiryStatus.CustRefNumber = resInqueryStatus.CustRefNumber
+	expInquiryStatus.Response.Desc = `SUCCESS`
 	test.Assert(t, `InquiryStatus`, expInquiryStatus, resInqueryStatus)
 }
 
