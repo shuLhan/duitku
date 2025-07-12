@@ -55,6 +55,7 @@ func NewClient(opts ClientOptions) (cl *Client, err error) {
 		logp      = `NewClient`
 		httpcOpts = libhttp.ClientOptions{
 			ServerUrl: opts.ServerUrl,
+			Timeout:   opts.Timeout,
 		}
 	)
 

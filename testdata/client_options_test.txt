@@ -35,5 +35,6 @@ api_key = 1ndom4r3t
   },
   "DisburseApiKey": "abcd",
   "DisburseEmail": "my@company.com",
-  "DisburseUserID": 1111
+  "DisburseUserID": 1111,
+  "Timeout": 0
 }

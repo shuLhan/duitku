@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"time"
 
 	"github.com/shuLhan/share/lib/ini"
 )
@@ -33,6 +34,9 @@ type ClientOptions struct {
 
 	// DisburseUserID user ID for disbursement request.
 	DisburseUserID int64 `ini:"duitku::disburse_user_id"`
+
+	// Timeout for connection and response.
+	Timeout time.Duration
 }
 
 // LoadClientOptions load ClientOptions from file.
