@@ -5,12 +5,10 @@ module git.sr.ht/~shulhan/duitku
 
 go 1.23.4
 
-require (
-	git.sr.ht/~shulhan/pakakeh.go v0.60.1
-	github.com/shuLhan/share v0.49.0
-)
+require git.sr.ht/~shulhan/pakakeh.go v0.60.1
 
 require (
+	golang.org/x/exp v0.0.0-20250408133849-7e4ce0ab07d0 // indirect
 	golang.org/x/mod v0.24.0 // indirect
 	golang.org/x/net v0.39.0 // indirect
 	golang.org/x/sync v0.13.0 // indirect

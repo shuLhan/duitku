@@ -3,7 +3,7 @@
 
 package duitku
 
-import "github.com/shuLhan/share/lib/math/big"
+import "git.sr.ht/~shulhan/pakakeh.go/lib/math/big"
 
 // RtolInquiryResponse contains response from inquiry for Online Transfer.
 type RtolInquiryResponse struct {

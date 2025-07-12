@@ -4,7 +4,7 @@
 package duitku
 
 import (
-	"github.com/shuLhan/share/lib/math/big"
+	"git.sr.ht/~shulhan/pakakeh.go/lib/math/big"
 )
 
 // Bank contains bank information from response of ListBank.

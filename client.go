@@ -6,12 +6,11 @@ package duitku
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
 	"net/url"
 	"sort"
 	"strings"
 
-	libhttp "github.com/shuLhan/share/lib/http"
+	libhttp "git.sr.ht/~shulhan/pakakeh.go/lib/http"
 )
 
 // List of known and implemented HTTP API paths.
@@ -54,7 +53,7 @@ func NewClient(opts ClientOptions) (cl *Client, err error) {
 	var (
 		logp      = `NewClient`
 		httpcOpts = libhttp.ClientOptions{
-			ServerUrl: opts.ServerUrl,
+			ServerURL: opts.ServerUrl,
 			Timeout:   opts.Timeout,
 		}
 	)
@@ -65,7 +64,7 @@ func NewClient(opts ClientOptions) (cl *Client, err error) {
 	}
 
 	cl = &Client{
-		Client: libhttp.NewClient(&httpcOpts),
+		Client: libhttp.NewClient(httpcOpts),
 		opts:   opts,
 	}
 
@@ -77,20 +76,23 @@ func (cl *Client) CheckBalance() (bal *Balance, err error) {
 	var (
 		logp = `CheckBalance`
 		req  = CreateDisburseRequest(cl.opts)
-
-		httpRes *http.Response
-		resBody []byte
 	)
 
-	httpRes, resBody, err = cl.PostJSON(PathCheckBalance, nil, req)
+	var clreq = libhttp.ClientRequest{
+		Path:   PathCheckBalance,
+		Params: req,
+	}
+	var clresp *libhttp.ClientResponse
+
+	clresp, err = cl.PostJSON(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if httpRes.StatusCode >= 500 {
-		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
+	if clresp.HTTPResponse.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, clresp.HTTPResponse.Status)
 	}
 
-	err = json.Unmarshal(resBody, &bal)
+	err = json.Unmarshal(clresp.Body, &bal)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %s`, logp, err)
 	}
@@ -105,8 +107,7 @@ func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryRes
 		logp = `ClearingInquiry`
 		path = PathInquiryClearing
 
-		httpRes *http.Response
-		resBody []byte
+		clresp *libhttp.ClientResponse
 	)
 
 	req.Sign(cl.opts)
@@ -117,15 +118,19 @@ func (cl *Client) ClearingInquiry(req *ClearingInquiry) (res *ClearingInquiryRes
 		path = PathInquiryClearingSandbox
 	}
 
-	httpRes, resBody, err = cl.PostJSON(path, nil, req)
+	var clreq = libhttp.ClientRequest{
+		Path:   path,
+		Params: req,
+	}
+	clresp, err = cl.PostJSON(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if httpRes.StatusCode >= 500 {
-		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
+	if clresp.HTTPResponse.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, clresp.HTTPResponse.Status)
 	}
 
-	err = json.Unmarshal(resBody, &res)
+	err = json.Unmarshal(clresp.Body, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -142,8 +147,7 @@ func (cl *Client) ClearingTransfer(req *ClearingTransfer) (res *ClearingTransfer
 		logp = `ClearingTransfer`
 		path = PathTransferClearing
 
-		httpRes *http.Response
-		resBody []byte
+		clresp *libhttp.ClientResponse
 	)
 
 	req.Sign(cl.opts)
@@ -154,15 +158,19 @@ func (cl *Client) ClearingTransfer(req *ClearingTransfer) (res *ClearingTransfer
 		path = PathTransferClearingSandbox
 	}
 
-	httpRes, resBody, err = cl.PostJSON(path, nil, req)
+	var clreq = libhttp.ClientRequest{
+		Path:   path,
+		Params: req,
+	}
+	clresp, err = cl.PostJSON(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if httpRes.StatusCode >= 500 {
-		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
+	if clresp.HTTPResponse.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, clresp.HTTPResponse.Status)
 	}
 
-	err = json.Unmarshal(resBody, &res)
+	err = json.Unmarshal(clresp.Body, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -178,9 +186,6 @@ func (cl *Client) InquiryStatus(disburseID int64) (res *InquiryStatusResponse, e
 		req  = InquiryStatus{
 			DisburseID: disburseID,
 		}
-
-		resHttp *http.Response
-		resBody []byte
 	)
 
 	// Since the path is different in test environment, we check the host
@@ -191,15 +196,21 @@ func (cl *Client) InquiryStatus(disburseID int64) (res *InquiryStatusResponse, e
 
 	req.Sign(cl.opts)
 
-	resHttp, resBody, err = cl.PostJSON(path, nil, req)
+	var clreq = libhttp.ClientRequest{
+		Path:   path,
+		Params: req,
+	}
+	var clresp *libhttp.ClientResponse
+
+	clresp, err = cl.PostJSON(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if resHttp.StatusCode >= 500 {
-		return nil, fmt.Errorf(`%s: %s`, logp, resHttp.Status)
+	if clresp.HTTPResponse.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, clresp.HTTPResponse.Status)
 	}
 
-	err = json.Unmarshal(resBody, &res)
+	err = json.Unmarshal(clresp.Body, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -218,22 +229,25 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 			Code string      `json:"responseCode"`
 			Desc string      `json:"responseDesc"`
 		}{}
-
-		httpRes *http.Response
-		resBody []byte
 	)
 
-	httpRes, resBody, err = cl.PostJSON(PathListBank, nil, req)
+	var clreq = libhttp.ClientRequest{
+		Path:   PathListBank,
+		Params: req,
+	}
+	var clresp *libhttp.ClientResponse
+
+	clresp, err = cl.PostJSON(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if httpRes.StatusCode >= 500 {
-		return nil, fmt.Errorf(`%s: %s`, logp, httpRes.Status)
+	if clresp.HTTPResponse.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, clresp.HTTPResponse.Status)
 	}
 
 	res.Data = &banks
 
-	err = json.Unmarshal(resBody, &res)
+	err = json.Unmarshal(clresp.Body, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %s`, logp, err)
 	}
@@ -262,24 +276,25 @@ func (cl *Client) ListBank() (banks []Bank, err error) {
 //
 // Ref: https://docs.duitku.com/api/en/#request-transaction
 func (cl *Client) MerchantInquiry(req *MerchantInquiry) (resp *MerchantInquiryResponse, err error) {
-	var (
-		logp = `MerchantInquiry`
-
-		httpRes *http.Response
-		resBody []byte
-	)
+	var logp = `MerchantInquiry`
 
 	req.sign(cl.opts)
 
-	httpRes, resBody, err = cl.PostJSON(PathMerchantInquiry, nil, req)
+	var clreq = libhttp.ClientRequest{
+		Path:   PathMerchantInquiry,
+		Params: req,
+	}
+	var clresp *libhttp.ClientResponse
+
+	clresp, err = cl.PostJSON(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if httpRes.StatusCode >= 500 {
-		return nil, fmt.Errorf(`%s: %s: %s`, logp, httpRes.Status, resBody)
+	if clresp.HTTPResponse.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, clresp.HTTPResponse.Status, clresp.Body)
 	}
 
-	err = json.Unmarshal(resBody, &resp)
+	err = json.Unmarshal(clresp.Body, &resp)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -295,22 +310,25 @@ func (cl *Client) MerchantPaymentMethod(req *PaymentMethod) (resp *PaymentMethod
 	var (
 		logp = `MerchantPaymentMethod`
 		path = PathMerchantPaymentMethod
-
-		httpRes *http.Response
-		resBody []byte
 	)
 
 	req.Sign(cl.opts)
 
-	httpRes, resBody, err = cl.PostJSON(path, nil, req)
+	var clreq = libhttp.ClientRequest{
+		Path:   path,
+		Params: req,
+	}
+	var clresp *libhttp.ClientResponse
+
+	clresp, err = cl.PostJSON(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if httpRes.StatusCode >= 400 {
-		return nil, fmt.Errorf(`%s: %s: %s`, logp, httpRes.Status, resBody)
+	if clresp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, clresp.HTTPResponse.Status, clresp.Body)
 	}
 
-	err = json.Unmarshal(resBody, &resp)
+	err = json.Unmarshal(clresp.Body, &resp)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -325,9 +343,7 @@ func (cl *Client) MerchantPaymentStatus(req *PaymentStatus) (resp *PaymentStatus
 	var (
 		logp = `MerchantPaymentStatus`
 
-		params  url.Values
-		httpRes *http.Response
-		resBody []byte
+		params url.Values
 	)
 
 	req.sign(cl.opts)
@@ -337,15 +353,21 @@ func (cl *Client) MerchantPaymentStatus(req *PaymentStatus) (resp *PaymentStatus
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
 
-	httpRes, resBody, err = cl.PostForm(PathMerchantTransactionStatus, nil, params)
+	var clreq = libhttp.ClientRequest{
+		Path:   PathMerchantTransactionStatus,
+		Params: params,
+	}
+	var clresp *libhttp.ClientResponse
+
+	clresp, err = cl.PostForm(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if httpRes.StatusCode >= 400 {
-		return nil, fmt.Errorf(`%s: %s: %s`, logp, httpRes.Status, resBody)
+	if clresp.HTTPResponse.StatusCode >= 400 {
+		return nil, fmt.Errorf(`%s: %s: %s`, logp, clresp.HTTPResponse.Status, clresp.Body)
 	}
 
-	err = json.Unmarshal(resBody, &resp)
+	err = json.Unmarshal(clresp.Body, &resp)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -370,9 +392,6 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 	var (
 		logp = `RtolInquiry`
 		path = PathInquiry
-
-		resHttp *http.Response
-		resBody []byte
 	)
 
 	// Since the path is different in test environment, we check the host
@@ -383,15 +402,21 @@ func (cl *Client) RtolInquiry(req *RtolInquiry) (res *RtolInquiryResponse, err e
 
 	req.Sign(cl.opts)
 
-	resHttp, resBody, err = cl.PostJSON(path, nil, req)
+	var clreq = libhttp.ClientRequest{
+		Path:   path,
+		Params: req,
+	}
+	var clresp *libhttp.ClientResponse
+
+	clresp, err = cl.PostJSON(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if resHttp.StatusCode >= 500 {
-		return nil, fmt.Errorf(`%s: %s`, logp, resHttp.Status)
+	if clresp.HTTPResponse.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, clresp.HTTPResponse.Status)
 	}
 
-	err = json.Unmarshal(resBody, &res)
+	err = json.Unmarshal(clresp.Body, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
@@ -412,9 +437,6 @@ func (cl *Client) RtolTransfer(req *RtolTransfer) (res *RtolTransferResponse, er
 	var (
 		logp = `RtolTransfer`
 		path = PathTransfer
-
-		resHttp *http.Response
-		resBody []byte
 	)
 
 	// Since the path is different in test environment, we check the host
@@ -425,15 +447,21 @@ func (cl *Client) RtolTransfer(req *RtolTransfer) (res *RtolTransferResponse, er
 
 	req.Sign(cl.opts)
 
-	resHttp, resBody, err = cl.PostJSON(path, nil, req)
+	var clreq = libhttp.ClientRequest{
+		Path:   path,
+		Params: req,
+	}
+	var clresp *libhttp.ClientResponse
+
+	clresp, err = cl.PostJSON(clreq)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}
-	if resHttp.StatusCode >= 500 {
-		return nil, fmt.Errorf(`%s: %s`, logp, resHttp.Status)
+	if clresp.HTTPResponse.StatusCode >= 500 {
+		return nil, fmt.Errorf(`%s: %s`, logp, clresp.HTTPResponse.Status)
 	}
 
-	err = json.Unmarshal(resBody, &res)
+	err = json.Unmarshal(clresp.Body, &res)
 	if err != nil {
 		return nil, fmt.Errorf(`%s: %w`, logp, err)
 	}

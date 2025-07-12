@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/shuLhan/share/lib/ini"
+	"git.sr.ht/~shulhan/pakakeh.go/lib/ini"
 )
 
 // ClientOptions configuration for HTTP client.

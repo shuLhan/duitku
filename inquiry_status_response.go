@@ -3,7 +3,7 @@
 
 package duitku
 
-import "github.com/shuLhan/share/lib/math/big"
+import "git.sr.ht/~shulhan/pakakeh.go/lib/math/big"
 
 // InquiryStatusResponse define response valeus from InquiryStatus.
 type InquiryStatusResponse struct {
