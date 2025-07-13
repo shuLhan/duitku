@@ -1,26 +1,50 @@
-= Go client for duitku.com
-Shulhan <ms@kilabit.info>
-7 Nov 2022
-:toc:
-:sectanchors:
+# duitku
 
-duitku is Go library and client for
-https://duitku.com[duitku.com].
+duitku is a Go module for
+[duitku.com](https://duitku.com).
 
-Supported HTTP APIs,
+Not all HTTP APIs are supported only some of them.
+List of supported HTTP APIs,
 
 * Disbursement,
-
-** https://docs.duitku.com/disbursement/en/#transfer-online[Transfer online^]
-** https://docs.duitku.com/disbursement/en/#clearing-transaction-flow[Clearing^]
-** https://docs.duitku.com/disbursement/en/#inquiry-list-bank[Inquiry list bank^]
-** https://docs.duitku.com/disbursement/en/#inquiry-check-balance-request[Check balance^]
+  * [Transfer online](https://docs.duitku.com/disbursement/en/#transfer-online)
+  * [Clearing](https://docs.duitku.com/disbursement/en/#clearing-transaction-flow)
+  * [Inquiry list bank](https://docs.duitku.com/disbursement/en/#inquiry-list-bank)
+  * [Check balance](https://docs.duitku.com/disbursement/en/#inquiry-check-balance-request)
 
 * Merchant,
 
-** https://docs.duitku.com/api/en/#get-payment-method[Get payment method^]
-** https://docs.duitku.com/api/en/#request-transaction[Inquiry^]
-** https://docs.duitku.com/api/en/#check-transaction[Check transaction status^]
+  * [Get payment method](https://docs.duitku.com/api/en/#get-payment-method)
+  * [Inquiry](https://docs.duitku.com/api/en/#request-transaction)
+  * [Check transaction status](https://docs.duitku.com/api/en/#check-transaction)
 
-// SPDX-FileCopyrightText: 2022 M. Shulhan <ms@kilabit.info>
-// SPDX-License-Identifier: GPL-3.0-or-later
+
+## Development
+
+<https://kilabit.info/project/duitku/> - Project page.
+
+<https://git.sr.ht/~shulhan/duitku> - Link to the source code repository.
+
+
+## License
+
+Copyright (C) 2022 M. Shulhan &lt;ms@kilabit.info&gt;
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option)
+any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+more details.
+
+You should have received a copy of the GNU General Public License along
+with this program.
+If not, see <http://www.gnu.org/licenses/>.
+
+<!--
+SPDX-FileCopyrightText: 2022 M. Shulhan <ms@kilabit.info>
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
