@@ -1,0 +1,19 @@
+= duitku releases notes
+
+[#duitku_v0_1_0]
+== duitku v0.1.0 (2025-07-13)
+
+List of supported HTTP APIs,
+
+* Disbursement,
+
+** https://docs.duitku.com/disbursement/en/#transfer-online[Transfer online^]
+** https://docs.duitku.com/disbursement/en/#clearing-transaction-flow[Clearing^]
+** https://docs.duitku.com/disbursement/en/#inquiry-list-bank[Inquiry list bank^]
+** https://docs.duitku.com/disbursement/en/#inquiry-check-balance-request[Check balance^]
+
+* Merchant,
+
+** https://docs.duitku.com/api/en/#get-payment-method[Get payment method^]
+** https://docs.duitku.com/api/en/#request-transaction[Inquiry^]
+** https://docs.duitku.com/api/en/#check-transaction[Check transaction status^]
